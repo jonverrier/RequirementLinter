@@ -42,41 +42,55 @@ const noUnits: IRequirementExample = {
 
 describe('Requirements Evaluation Tests', () => {
 
-   const TEST_TIMEOUT = 10000; // 10 seconds
-   
+   const TEST_TIMEOUT = 20000; // 10 seconds
+
    let prompt: IPrompt = prompts.find(p => p.id === requirementsGuidelineCheckerPromptId)!;
 
-   const promptRepo : IPromptRepository= new PromptInMemoryRepository([prompt]);
+   const promptRepo: IPromptRepository = new PromptInMemoryRepository([prompt]);
 
    async function evaluateRequirement(requirement: string) {
       const prompt = promptRepo.getPrompt(requirementsGuidelineCheckerPromptId);
       expect(prompt).toBeDefined();
-      
+
       throwIfUndefined(prompt?.systemPrompt);
 
       const systemPrompt = prompt.systemPrompt;
       let wordCount = requirement.length * 5;
 
-      const userPrompt = promptRepo.expandUserPrompt(prompt!, { 
-          guidelines: guidelines, 
-          requirement: requirement, 
-          wordCount: wordCount.toString() 
+      const userPrompt = promptRepo.expandUserPrompt(prompt!, {
+         guidelines: guidelines,
+         requirement: requirement,
+         wordCount: wordCount.toString()
       });
 
       return await getModelResponse(systemPrompt, userPrompt);
-  }   
+   }
 
-    it('should generate meaningful feedback for General Rules / no subject', async () => {
+   it('should generate meaningful feedback for General Rules / no subject', async () => {
 
-        const response = await evaluateRequirement(noSubject.unacceptable);
-        expect(response).toMatch(/(shall|must) (be confirmed by|confirm|be verified by|verify)/);
-        
-    }).timeout(TEST_TIMEOUT);
+      const response = await evaluateRequirement(noSubject.unacceptable);
+      expect(response).toMatch(/(shall|must) (be confirmed by|confirm|be verified by|verify)/);
 
-    it('should generate meaningful feedback for General Rules / no definition', async () => {
+   }).timeout(TEST_TIMEOUT);
+
+   it('should generate meaningful feedback for General Rules / no definition', async () => {
 
       const response = await evaluateRequirement(noDefinition.unacceptable);
       expect(response).toMatch(/(as defined in|as defined by|in accordance with)/);
-      
-  }).timeout(TEST_TIMEOUT);    
+
+   }).timeout(TEST_TIMEOUT);
+
+   it('should generate meaningful feedback for General Rules / no reference', async () => {
+
+      const response = await evaluateRequirement(noDefinitionReference.unacceptable);
+      expect(response).toMatch(/(as defined in|as defined by|in accordance with|format)/);
+
+   }).timeout(TEST_TIMEOUT);   
+
+   it('should generate meaningful feedback for General Rules / no units', async () => {
+
+      const response = await evaluateRequirement(noUnits.unacceptable);
+      expect(response).toMatch(/(Celsius|Farenheit|Kelvin)/);
+
+   }).timeout(TEST_TIMEOUT);  
 });
