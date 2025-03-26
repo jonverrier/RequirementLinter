@@ -26,12 +26,12 @@ const noSubject: IRequirementExample = {
 
 const noDefinition: IRequirementExample = {
     unacceptable: "The <SOI> shall display the current time as defined in <Display Standard xyz>.",
-    improved: ["The <SOI> shall display the Current_Time as defined in <Display Standard xyz>.", "The <SOI> shall display the Current_Time as defined in <Display Standard xyz>."]
+    improved: ["The <SOI> shall display the Current_Time as defined in <Display Standard xyz>."]
 };
 
 const noDefinitionReference: IRequirementExample = {
     unacceptable: "The <SOI> shall provide a time display.",
-    improved: ["The <SOI> shall display the Current_Time as defined in <display standard xyz>.", "The <SOI> shall display the Current_Time as defined in <display standard xyz>."]
+    improved: ["The <SOI> shall display the Current_Time as defined in <display standard xyz>."]
 };
 
 const noUnits: IRequirementExample = {
@@ -48,24 +48,35 @@ describe('Requirements Evaluation Tests', () => {
 
    const promptRepo : IPromptRepository= new PromptInMemoryRepository([prompt]);
 
-    it('should generate meaningful feedback to meet General Rules for Requirement Statements / no subject', async () => {
-        const prompt = promptRepo.getPrompt(requirementsGuidelineCheckerPromptId);
-        expect(prompt).toBeDefined();
-        
-        throwIfUndefined(prompt?.systemPrompt);
+   async function evaluateRequirement(requirement: string) {
+      const prompt = promptRepo.getPrompt(requirementsGuidelineCheckerPromptId);
+      expect(prompt).toBeDefined();
+      
+      throwIfUndefined(prompt?.systemPrompt);
 
-        const systemPrompt = prompt.systemPrompt;
-        let requirement = noSubject.unacceptable;
-        let wordCount = requirement.length * 5;
+      const systemPrompt = prompt.systemPrompt;
+      let wordCount = requirement.length * 5;
 
-        const userPrompt = promptRepo.expandUserPrompt(prompt!, { 
-            guidelines: guidelines, 
-            requirement: requirement, 
-            wordCount: wordCount.toString() 
-        });
+      const userPrompt = promptRepo.expandUserPrompt(prompt!, { 
+          guidelines: guidelines, 
+          requirement: requirement, 
+          wordCount: wordCount.toString() 
+      });
 
-        const response = await getModelResponse(systemPrompt, userPrompt);
+      return await getModelResponse(systemPrompt, userPrompt);
+  }   
+
+    it('should generate meaningful feedback for General Rules / no subject', async () => {
+
+        const response = await evaluateRequirement(noSubject.unacceptable);
         expect(response).toMatch(/(shall|must) (be confirmed by|confirm|be verified by|verify)/);
         
     }).timeout(TEST_TIMEOUT);
+
+    it('should generate meaningful feedback for General Rules / no definition', async () => {
+
+      const response = await evaluateRequirement(noDefinition.unacceptable);
+      expect(response).toMatch(/(as defined in|as defined by|in accordance with)/);
+      
+  }).timeout(TEST_TIMEOUT);    
 });

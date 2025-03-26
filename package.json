@@ -1,7 +1,7 @@
 {
    "name": "workbench",
    "version": "0.1.0",
-   "description": "Prototype AI-enabled software lifecycle workbeck",
+   "description": "AI-enabled software lifecycle workbench",
    "main": "src/entry.ts",
    "directories": {
      "src": "src",
