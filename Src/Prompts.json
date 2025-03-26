@@ -1,0 +1,40 @@
+[
+   {
+      "id": "8340054d-f96a-426a-8ae2-0632a01faca1",
+      "name": "ChunkContextSummariser",
+      "description": "Summarises text for use in chunking for RAG applications - provides a summary of the chunk and a short context situating the chunk in the main document.",
+      "version": "1.0",
+      "systemPrompt": "You are a senior software developer, and summarise concepts succinctly for more junior developers to understand.",
+      "userPrompt": "Here is the document:<document> {document} </document>. Here is the chunk we want to situate within the whole document: <chunk> {chunk} </chunk>. Ignore text that look like to be web page navigation, javascript, or other items that are not the main body of the text. Please give a succinct {wordCount} word context to situate this chunk within the overall document for the purposes of improving search retrieval of the chunk. Answer only with the succinct context and nothing else.",
+      "userPromptParameters": {
+         "document": "The document being chunked.",
+         "chunk": "The chunk to be situated within the document.",
+         "wordCount": "The number of words to use for the summary."
+      }
+   },
+   {
+      "id": "bf864025-a48d-4d25-a1da-48f55da3fe26",
+      "name": "RequirementsGuidelineChecker",
+      "description": "Reviews a requirement for conformance to good practice.",
+      "version": "1.0",
+      "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language.",
+      "userPrompt": "Here is a requirement:<requirement> {requirement} </requirement>. Review the requirement in the light of the following guidelines:<guidelines> {guidelines} </guidelines>. Please give a succinct {wordCount} word review of the requirement by applying the guidelines. Focus on the most important issues first. For each issue found, cite the specific guideline rule number that was violated. Provide a re-phrased requirement that is more compliant with the guidelines.",
+      "userPromptsParameters": [
+         {
+            "name": "requirement",
+            "description": "The requirement to be reviewed.",
+            "required": true
+         },
+         {
+            "name": "guidelines",
+            "description": "Guidelines for writing good requirements.",
+            "required": true
+         },
+         {
+            "name": "wordCount",
+            "description": "The number of words to use for the review.",
+            "required": true
+         }
+      ]
+   }
+]
