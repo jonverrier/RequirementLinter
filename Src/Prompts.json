@@ -18,7 +18,7 @@
       "description": "Reviews a requirement for conformance to good practice.",
       "version": "1.0",
       "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language.",
-      "userPrompt": "Here is a requirement:<requirement> {requirement} </requirement>. Review the requirement in the light of the following guidelines:<guidelines> {guidelines} </guidelines>. Please give a succinct {wordCount} word review of the requirement by applying the guidelines. Focus on the most important issues first. For each issue found, cite the specific guideline rule number that was violated. Provide a re-phrased requirement that is more compliant with the guidelines.",
+      "userPrompt": "Here is a requirement:<requirement> {requirement} </requirement>. Review the requirement in the light of the following guidelines:<guidelines> {guidelines} </guidelines>. Please give a succinct {wordCount} word review of the requirement by applying the guidelines. Focus on the most important issues first. For each issue found, cite the specific guideline rule number that was violated. Provide a re-phrased requirement (or multiple requirements if necessary) to comply with the guidelines, using code fences to demarcate the suggested new requirement(s). Consider carefully if you need to split the requirement into multiple suggested new requirements.",
       "userPromptsParameters": [
          {
             "name": "requirement",
@@ -36,5 +36,20 @@
             "required": true
          }
       ]
-   }
+   },
+   {
+      "id": "78dc3a65-d327-4643-8e7e-ce76a1b786ce",
+      "name": "RequirementsSplitter",
+      "description": "Reviews a requirement and splits it if necessary.",
+      "version": "1.0",
+      "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language.",
+      "userPrompt": "Here is a requirement:<requirement> {requirement} </requirement>. If the requirement should be split into multiple requirements, please do so using code fences to demarcate the suggested new requirements. Otherwise, return the original requirement between code fences.",
+      "userPromptsParameters": [
+         {
+            "name": "requirement",
+            "description": "The requirement to be reviewed.",
+            "required": true
+         }
+      ]
+   }   
 ]
