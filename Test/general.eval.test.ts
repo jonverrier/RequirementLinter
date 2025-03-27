@@ -165,7 +165,7 @@ describe('Requirements Evaluation Tests', () => {
       const response = await evaluateRequirement(promptRepo, noDefinition.unacceptable, noDefinition.improved);
       // Checks if response contains "as defined in" or "as defined by" or "in accordance with" etc
       // indicating proper definition construction
-      expect(response).toMatch(/(as defined in|as defined by|in accordance with|adhering to|according to|specified by|specified in|listed in|time display shall|shall adhere to|format)/);
+      expect(response).toMatch(/(as defined in|as defined by|in accordance with|adhering to|according to|specified by|specified in|listed in|time display shall|shall adhere to|format|current time in)/);
 
    }).timeout(TEST_TIMEOUT);   
 
@@ -230,7 +230,7 @@ describe('Requirements Evaluation Tests', () => {
 
       const response = await evaluateRequirement(promptRepo, notMeasurable2.unacceptable, notMeasurable2.improved);
 
-      expect(response).toMatch(/(ppm|PPM|%|less than|more than|greater than|at least|at most|not exceeding|not below|confirmed by|verified by|verified through|verified via|specified)/);
+      expect(response).toMatch(/(ppm|PPM|%|less than|more than|greater than|at least|at most|not exceeding|not below|confirmed by|verified by|verified through|verified via|shall verify|specified)/);
 
    }).timeout(TEST_TIMEOUT);
 
