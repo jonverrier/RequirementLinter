@@ -6,11 +6,23 @@
       "version": "1.0",
       "systemPrompt": "You are a senior software developer, and summarise concepts succinctly for more junior developers to understand.",
       "userPrompt": "Here is the document:<document> {document} </document>. Here is the chunk we want to situate within the whole document: <chunk> {chunk} </chunk>. Ignore text that look like to be web page navigation, javascript, or other items that are not the main body of the text. Please give a succinct {wordCount} word context to situate this chunk within the overall document for the purposes of improving search retrieval of the chunk. Answer only with the succinct context and nothing else.",
-      "userPromptParameters": {
-         "document": "The document being chunked.",
-         "chunk": "The chunk to be situated within the document.",
-         "wordCount": "The number of words to use for the summary."
-      }
+      "userPromptParameters": [
+         {
+            "name": "document",
+            "description": "The document being chunked.",
+            "required": true
+         },
+         {
+            "name": "chunk",
+            "description": "The chunk to be situated within the document.",
+            "required": true
+         },
+         {
+            "name": "wordCount",
+            "description": "The number of words to use for the context summary.",
+            "required": true
+         }
+      ]
    },
    {
       "id": "bf864025-a48d-4d25-a1da-48f55da3fe26",
@@ -18,8 +30,8 @@
       "description": "Reviews a requirement for conformance to good practice.",
       "version": "1.0",
       "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language.",
-      "userPrompt": "Here is a requirement:<requirement> {requirement} </requirement>. Review the requirement in the light of the following guidelines:<guidelines> {guidelines} </guidelines>. Please give a succinct {wordCount} word review of the requirement by applying the guidelines. Focus on the most important issues first. For each issue found, cite the specific guideline rule number that was violated. Provide a re-phrased requirement (or multiple requirements if necessary) to comply with the guidelines, using code fences to demarcate the suggested new requirement(s). Consider carefully if you need to split the requirement into multiple suggested new requirements.",
-      "userPromptsParameters": [
+      "userPrompt": "Here is a requirement:\n```requirement\n{requirement}\n```\n. Review the requirement in the light of the following guidelines:<guidelines> {guidelines} </guidelines>. Please give a succinct {wordCount} word review of the requirement by applying the guidelines. Focus on the most important issues first. For each issue found, cite the specific guideline rule number that was violated. Provide a re-phrased requirement (or multiple requirements if necessary) to comply with the guidelines, using code fences to demarcate the suggested new requirement(s). Consider the specific guidelines you have cited.",
+      "userPromptParameters": [
          {
             "name": "requirement",
             "description": "The requirement to be reviewed.",
@@ -42,14 +54,29 @@
       "name": "RequirementsSplitter",
       "description": "Reviews a requirement and splits it if necessary.",
       "version": "1.0",
-      "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language.",
-      "userPrompt": "Here is a requirement:<requirement> {requirement} </requirement>. If the requirement should be split into multiple requirements, please do so using code fences to demarcate the suggested new requirements. Otherwise, return the original requirement between code fences.",
-      "userPromptsParameters": [
+      "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language. Your work is suitable for formal specification documents.",
+      "userPrompt": "Here is a requirement:\n```requirement\n{requirement}\n```\nIf the requirement should be split into multiple requirements, please do so using code fences to demarcate the suggested new requirements. Otherwise, return the original requirement between code fences.",
+      "userPromptParameters": [
          {
             "name": "requirement",
             "description": "The requirement to be reviewed.",
             "required": true
          }
       ]
-   }   
+   },
+   {
+      "id": "374967c0-09ce-46be-a704-5f341bf69edb",
+      "name": "RequirementsFinalImprover",
+      "description": "Reviews a requirement and improves it if possible. This is the final step in the process.",
+      "version": "1.0",
+      "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language.",
+      "userPrompt": "Here is a requirement:\n```requirement\n{requirement}\n```\n. Review the requirement and attempt to make it the best formal specification you can. Using code fences to demarcate the suggested new requirements. Otherwise, return the original requirement between code fences.",
+      "userPromptParameters": [
+         {
+            "name": "requirement",
+            "description": "The requirement to be reviewed.",
+            "required": true
+         }
+      ]
+   }    
 ]
