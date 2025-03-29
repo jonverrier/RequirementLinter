@@ -76,11 +76,14 @@ const notMeasurable2: IRequirementExample = {
 
 
 function extractCodeFencedContent(response: string): string {
-   // Verify response contains code fences
-   expect(response).toMatch(/```[\s\S]*```/);
-   // Extract text between code fences using regex
-   const codeBlockMatch = response.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/);
-   return codeBlockMatch ? codeBlockMatch[1].trim() : '';
+   const codeBlocks = response.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/g);
+   const codeBlockMatch = codeBlocks ? codeBlocks.map(block => {
+       const content = block.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/);
+       return content ? content[1] : '';
+   }).join('\n').trim() : null;
+   
+   let result = codeBlockMatch ? codeBlockMatch.trim() : '';
+   return result;
 }
 
 function logAIResponseVsSuggested(initial: string, aiResponse: string, suggested: string[]) {

@@ -4,7 +4,6 @@ import { PromptInMemoryRepository, IPromptRepository, getModelResponse } from "p
 import prompts from '../Src/Prompts.json';
 import { requirementsSplitterPromptId } from '../Src/PromptIds';
 function extractCodeFencedContent(response: string): string {
-    console.log(response);
     const codeBlocks = response.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/g);
     const codeBlockMatch = codeBlocks ? codeBlocks.map(block => {
         const content = block.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/);
@@ -12,7 +11,6 @@ function extractCodeFencedContent(response: string): string {
     }).join('\n').trim() : null;
     
     let result = codeBlockMatch ? codeBlockMatch.trim() : '';
-    console.log(result);
     return result;
 }
 
