@@ -55,7 +55,7 @@
       "description": "Reviews a requirement and splits it if necessary.",
       "version": "1.0",
       "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language. Your work is suitable for formal specification documents.",
-      "userPrompt": "Here is a requirement:\n```requirement\n{requirement}\n```\nIf the requirement should be split into multiple requirements, please do so using code fences to demarcate the suggested new requirements. Otherwise, return the original requirement between code fences.",
+      "userPrompt": "Here is a requirement:\n```requirement\n{requirement}\n```\nIf the requirement should be split into multiple distinct requirements for clarity, testability, or traceability, please rewrite them as separate requirements. Use code fences to demarcate the set of new requirements. Do not split if the requirement can reasonably be written as a single requirement. If the requirement does not need to be split, return it unchanged within code fences.",
       "userPromptParameters": [
          {
             "name": "requirement",
@@ -70,7 +70,7 @@
       "description": "Reviews a requirement and improves it if possible. This is the final step in the process.",
       "version": "1.0",
       "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language.",
-      "userPrompt": "Here is a requirement:\n```requirement\n{requirement}\n```\n. Review the requirement and attempt to make it the best formal specification you can. Using code fences to demarcate the suggested new requirements. Otherwise, return the original requirement between code fences.",
+      "userPrompt": "Here is a requirement:\n```requirement\n{requirement}\n```\n. Review the requirement and attempt to make it the best formal specification you can. Using code fences to demarcate the suggested new requirements. Otherwise, return the original requirement between code fences. Ensure clarity, singularity, and verifiability in all responses.",
       "userPromptParameters": [
          {
             "name": "requirement",
