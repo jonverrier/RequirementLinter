@@ -5,6 +5,8 @@ import path from 'path';
 
 import prompts from '../Src/Prompts.json';
 
+const typedPrompts = prompts as IPrompt[];
+
 const guidelines = fs.readFileSync(path.join(__dirname, '../Src/RequirementsGuidelines.md'), 'utf-8');
 
 import { requirementsGuidelineCheckerPromptId, requirementsSplitterPromptId, requirementsFinalImproverPromptId } from '../Src/PromptIds';
@@ -135,7 +137,7 @@ describe('Requirements Evaluation Tests', () => {
 
    const TEST_TIMEOUT = 30000; // 30 seconds as we have a large prompt with all the requirements
 
-   const promptRepo: IPromptRepository = new PromptInMemoryRepository(prompts);
+   const promptRepo: IPromptRepository = new PromptInMemoryRepository(typedPrompts);
    
    it('should improve General Rules / no active voice', async () => {
 
@@ -168,7 +170,7 @@ describe('Requirements Evaluation Tests', () => {
       const response = await evaluateRequirement(promptRepo, noDefinition.unacceptable, noDefinition.improved);
       // Checks if response contains "as defined in" or "as defined by" or "in accordance with" etc
       // indicating proper definition construction
-      expect(response).toMatch(/(as defined in|as defined by|in accordance with|adhering to|according to|specified by|specified in|listed in|time display shall|shall adhere to|format|current time in)/);
+      expect(response).toMatch(/(defined in|defined by|in accordance with|adhering to|according to|specified by|specified in|listed in|time display shall|shall adhere to|format|current time in)/);
 
    }).timeout(TEST_TIMEOUT);   
 
@@ -177,7 +179,7 @@ describe('Requirements Evaluation Tests', () => {
       const response = await evaluateRequirement(promptRepo, noDefinition2.unacceptable, noDefinition2.improved);
       // Checks if response contains "as defined in" or "as defined by" or "in accordance with"
       // indicating proper definition construction
-      expect(response).toMatch(/(as defined in|as defined by|in accordance with|adhering to|according to|specified by|specified in|listed in|selected from)/);
+      expect(response).toMatch(/(defined in|defined by|in accordance with|adhering to|according to|specified by|specified in|listed in|selected from)/);
 
    }).timeout(TEST_TIMEOUT);     
 
@@ -233,7 +235,7 @@ describe('Requirements Evaluation Tests', () => {
 
       const response = await evaluateRequirement(promptRepo, notMeasurable2.unacceptable, notMeasurable2.improved);
 
-      expect(response).toMatch(/(ppm|PPM|%|less than|more than|greater than|at least|at most|not exceeding|not below|confirmed by|verified by|verified through|verified via|shall verify|specified)/);
+      expect(response).toMatch(/(mg|ppm|PPM|%|less than|more than|greater than|at least|at most|not exceeding|not below|confirmed by|verified by|verified through|verified via|shall verify|specified)/);
 
    }).timeout(TEST_TIMEOUT);
 

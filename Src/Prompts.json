@@ -35,16 +35,19 @@
          {
             "name": "requirement",
             "description": "The requirement to be reviewed.",
+            "type": "kString",
             "required": true
          },
          {
             "name": "guidelines",
             "description": "Guidelines for writing good requirements.",
+            "type": "kString",
             "required": true
          },
          {
             "name": "wordCount",
             "description": "The number of words to use for the review.",
+            "type": "kNumber",
             "required": true
          }
       ]
@@ -60,6 +63,7 @@
          {
             "name": "requirement",
             "description": "The requirement to be reviewed.",
+            "type": "kString",
             "required": true
          }
       ]
@@ -75,6 +79,7 @@
          {
             "name": "requirement",
             "description": "The requirement to be reviewed.",
+            "type": "kString",
             "required": true
          }
       ]

@@ -1,8 +1,11 @@
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
-import { PromptInMemoryRepository, IPromptRepository, getModelResponse } from "promptrepository";
+import { PromptInMemoryRepository, IPromptRepository, getModelResponse, IPrompt } from "promptrepository";
 import prompts from '../Src/Prompts.json';
 import { requirementsSplitterPromptId } from '../Src/PromptIds';
+
+const typedPrompts = prompts as IPrompt[];
+
 function extractCodeFencedContent(response: string): string {
     const codeBlocks = response.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/g);
     const codeBlockMatch = codeBlocks ? codeBlocks.map(block => {
@@ -26,7 +29,7 @@ async function evaluateRequirementSplit(promptRepo: IPromptRepository, requireme
 
 describe('Requirements Splitter Tests', () => {
     const TEST_TIMEOUT = 30000;
-    const promptRepo: IPromptRepository = new PromptInMemoryRepository(prompts);
+    const promptRepo: IPromptRepository = new PromptInMemoryRepository(typedPrompts);
 
     // Test 1: Simple single requirement that should not be split
     it('should not split a simple single requirement', async () => {
