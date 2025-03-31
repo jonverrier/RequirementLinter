@@ -16,7 +16,7 @@ describe('Requirements Splitter Tests', () => {
         const response = await improveRequirementSplit(input);
         
         // Should have single "shall/must" statements      
-        const shallCount = (response.toLowerCase().match(/(shall|must)/g) || []).length;
+        const shallCount = (response.proposedNewRequirement.toLowerCase().match(/(shall|must)/g) || []).length;
         expect(shallCount).toEqual(1);        
     }).timeout(TEST_TIMEOUT);
 
@@ -26,7 +26,7 @@ describe('Requirements Splitter Tests', () => {
         const response = await improveRequirementSplit(input);
         
         // Should have single "shall/must" statements       
-        const shallCount = (response.toLowerCase().match(/(shall|must)/g) || []).length;
+        const shallCount = (response.proposedNewRequirement.toLowerCase().match(/(shall|must)/g) || []).length;
         expect(shallCount).toEqual(1);
     }).timeout(TEST_TIMEOUT);
 
@@ -36,7 +36,7 @@ describe('Requirements Splitter Tests', () => {
         const response = await improveRequirementSplit(input);      
 
         // Should have multiple "shall/must" statements
-        const shallCount = (response.toLowerCase().match(/(shall|must)/g) || []).length;
+        const shallCount = (response.proposedNewRequirement.toLowerCase().match(/(shall|must)/g) || []).length;
         expect(shallCount).toBeGreaterThan(1);
     }).timeout(TEST_TIMEOUT);
 });

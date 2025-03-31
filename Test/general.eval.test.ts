@@ -1,7 +1,7 @@
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 
-import { improveRequirement, improveRequirementSplit } from '../Src/EvaluateRequirement';
+import { reviewAndImproveRequirement } from '../Src/EvaluateRequirement';
 
 interface IRequirementExample {
     unacceptable: string;
@@ -29,7 +29,7 @@ const noDefinition2: IRequirementExample = {
 };
 
 const incorrectSpelling: IRequirementExample = {
-   unacceptable: "The Weapon_System shall store the location of each ordinance.",
+   unacceptable: "The Weapon_System shall store the location of each ordznance.",
    improved: ["The Weapon_System shall store the Location of each Ordnance."]
 };
 
@@ -71,17 +71,15 @@ function logAIResponseVsSuggested(initial: string, aiResponse: string, suggested
    console.log(`Suggested: ${suggested.join(", ")}`);
 }
 
-
 async function getRevisedRequirement(requirement: string, suggested: string[]) : Promise<string> {
 
    let wordCount : number = requirement.length * 5;
 
-   const improvedRequirement = await improveRequirement(requirement, wordCount);
-   let splitRequirement = await improveRequirementSplit(improvedRequirement);
+   const improvedRequirement = await reviewAndImproveRequirement(requirement);
 
-   logAIResponseVsSuggested(requirement, splitRequirement, suggested);
+   //logAIResponseVsSuggested(requirement, improvedRequirement.proposedNewRequirement, suggested);
 
-   return splitRequirement || '';
+   return improvedRequirement.proposedNewRequirement || '';
 }
 
 describe('Requirements Evaluation Tests', () => {
