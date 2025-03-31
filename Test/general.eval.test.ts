@@ -3,7 +3,7 @@
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 
-import { reviewAndImproveRequirement } from '../Src/EvaluateRequirement';
+import { reviewAndImproveRequirement } from '../src/EvaluateRequirement';
 
 interface IRequirementExample {
     unacceptable: string;

@@ -7,8 +7,8 @@
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 import { PromptInMemoryRepository, IPromptRepository, IPrompt, EModel, EModelProvider, ChatDriverFactory } from "promptrepository";
-import prompts from '../Src/Prompts.json';
-import { requirementsFeasibilityCheckerPromptId } from '../Src/PromptIds';
+import prompts from '../src/Prompts.json';
+import { requirementsFeasibilityCheckerPromptId } from '../src/PromptIds';
 
 const typedPrompts = prompts as IPrompt[];
 

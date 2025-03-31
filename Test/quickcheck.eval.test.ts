@@ -6,7 +6,7 @@
 
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
-import { quickCheckLooksLikeRequirement } from '../Src/QuickCheck';
+import { quickCheckLooksLikeRequirement } from '../src/QuickCheck';
 import { EModelProvider } from 'promptrepository';
 import { EModel } from 'promptrepository';
 import { ChatDriverFactory } from 'promptrepository';

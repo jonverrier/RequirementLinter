@@ -14,8 +14,8 @@ import path from "path";
 import fs from "fs";
 
 import { EModel, EModelProvider, ChatDriverFactory, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "promptrepository";
-import { requirementsGuidelineCheckerPromptId, requirementsSplitterPromptId } from '../Src/PromptIds';
-import prompts from '../Src/Prompts.json';
+import { requirementsGuidelineCheckerPromptId, requirementsSplitterPromptId } from './PromptIds';
+import prompts from './Prompts.json';
 
 const typedPrompts = prompts as IPrompt[];
 

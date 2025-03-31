@@ -6,7 +6,7 @@
 
 import { describe, it } from 'mocha';
 import { expect } from 'expect';
-import { reviewAndImproveRequirement } from '../Src/EvaluateRequirement';
+import { reviewAndImproveRequirement } from '../src/EvaluateRequirement';
 
 describe('reviewAndImproveRequirement Integration Tests', () => {
     // Increase timeout for API calls

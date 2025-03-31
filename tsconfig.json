@@ -5,7 +5,7 @@
     "lib": ["ES2022", "DOM"],
     "outDir": "dist",
     "rootDir": ".",
-    "sourceMap": false,
+    "sourceMap": true,
     "strict": true,
     "noImplicitAny": true,
     "declaration": true, 
@@ -22,7 +22,7 @@
   "include": [
     "**/*.json",
     "src/**/*.ts",
-    "src/**/*.md",    
-    "test/**/*.ts"    
+    "src/functions/src/**/*.ts",            
+    "src/**/*.md"   
   ]
 }

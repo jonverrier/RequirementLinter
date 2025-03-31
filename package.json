@@ -2,22 +2,24 @@
    "name": "workbench",
    "version": "0.1.0",
    "description": "AI-enabled software lifecycle workbench",
-   "main": "src/entry.ts",
+   "main": "dist/src/functions/*.js",
    "directories": {
       "src": "src",
-      "test": "test"
+      "Test": "Test"
    },
    "author": "Jon Verrier",
    "license": "MIT",
    "scripts": {
-      "start": "ts-node entry.ts",
       "build": "tsc -b",
       "watch": "tsc -b -w",
       "clean": "rimraf dist",
+      "prestart": "npm run clean && npm run build",
+      "start": "func start",      
       "test": "mocha --require ts-node/register --extensions ts,js test/**/*.test.ts --exit",
       "test-mini": "mocha --require ts-node/register --extensions ts,js test/**/*.test.ts -g \"Improve\" --exit"
    },
    "devDependencies": {
+      "azure-functions-core-tools": "^4.x",      
       "@types/mocha": "^10.0.10",
       "@types/node": "^22.13.8",
       "@types/sinon": "^17.0.4",
@@ -30,5 +32,8 @@
       "ts-node": "^10.9.2",
       "tslib": "^2.8.1",
       "typescript": "^5.7.3"
+   },
+   "dependencies": {
+      "@azure/functions": "^4.0.0"
    }
 }

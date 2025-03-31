@@ -6,8 +6,8 @@
 // Copyright (c) 2025 Jon Verrier
 
 import { ChatDriverFactory, EModel, EModelProvider, IPrompt, PromptInMemoryRepository } from "promptrepository";
-import { requirementsFeasibilityCheckerPromptId } from "../Src/PromptIds";
-import prompts from '../Src/Prompts.json';
+import { requirementsFeasibilityCheckerPromptId } from "./PromptIds";
+import prompts from "./Prompts.json";
 const typedPrompts = prompts as IPrompt[];
 export async function quickCheckLooksLikeRequirement (statement: string, beFriendly: boolean = true) : Promise<boolean> {
 

@@ -6,7 +6,7 @@
 
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
-import { improveRequirementSplit } from '../Src/EvaluateRequirement';
+import { improveRequirementSplit } from '../src/EvaluateRequirement';
 
 describe('Requirements Splitter Tests', () => {
     const TEST_TIMEOUT = 30000;
