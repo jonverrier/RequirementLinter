@@ -9,7 +9,23 @@ import { ChatDriverFactory, EModel, EModelProvider, IPrompt, PromptInMemoryRepos
 import { requirementsFeasibilityCheckerPromptId } from "./PromptIds";
 import prompts from "./Prompts.json";
 const typedPrompts = prompts as IPrompt[];
-export async function quickCheckLooksLikeRequirement (statement: string, beFriendly: boolean = true) : Promise<boolean> {
+
+export interface IQuickCheckRequest {
+    statement: string;
+    beFriendly?: boolean | undefined;
+}
+
+export interface IQuickCheckResponse {
+    isRequirement: boolean;
+}
+
+/**
+ * Checks if a given statement looks like a system requirement.
+ * @param statement - The statement to check.
+ * @param beFriendly - Whether to be give the user the benefit of the doubt in the event we get an expected response from the LLM (i.e we say yes)
+ * @returns True if the statement looks like a system requirement, false otherwise.
+ */
+export async function quickCheckLooksLikeRequirement (request: IQuickCheckRequest) : Promise<IQuickCheckResponse> {
 
     // Create a fast chat driver
     const chatDriverFactory = new ChatDriverFactory();
@@ -19,7 +35,7 @@ export async function quickCheckLooksLikeRequirement (statement: string, beFrien
     const promptRepo = new PromptInMemoryRepository(typedPrompts);
     const prompt = promptRepo.getPrompt(requirementsFeasibilityCheckerPromptId);
     const userPrompt = promptRepo.expandUserPrompt(prompt!, {
-      statement: statement
+      statement: request.statement
     });
 
     // Get the response from the AI
@@ -30,15 +46,15 @@ export async function quickCheckLooksLikeRequirement (statement: string, beFrien
 
     switch (trimmed) {
         case 'yes':
-            return true;
+            return { isRequirement: true };
         case 'no':
-            return false;
+            return { isRequirement: false };
         default:
-         if (beFriendly) {
-            return true;
+         if (request.beFriendly) {
+            return { isRequirement: true };
          }
          else {
-            return false;
+            return { isRequirement: false };
          }
     }
 }
