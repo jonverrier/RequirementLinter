@@ -1,3 +1,8 @@
+/**
+ * @module requirements-feasibility.eval.test
+ * Integration tests for the evaluateRequirementFeasibility function.
+ */
+
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 import { PromptInMemoryRepository, IPromptRepository, IPrompt, EModel, EModelProvider, ChatDriverFactory } from "promptrepository";

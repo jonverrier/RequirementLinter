@@ -1,3 +1,8 @@
+/**
+ * @module QuickCheck
+ * Provides functionality to quickly check if a given statement looks like a system requirement.
+ * Uses AI to evaluate the statement against standard requirement criteria.
+ */
 
 
 import { ChatDriverFactory, EModel, EModelProvider, IPrompt, PromptInMemoryRepository } from "promptrepository";
