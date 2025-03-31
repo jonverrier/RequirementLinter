@@ -1,6 +1,6 @@
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
-import { PromptInMemoryRepository, IPromptRepository, getModelResponse, IPrompt } from "promptrepository";
+import { PromptInMemoryRepository, IPromptRepository, IPrompt, EModel, EModelProvider, ChatDriverFactory } from "promptrepository";
 import prompts from '../Src/Prompts.json';
 import { requirementsSplitterPromptId } from '../Src/PromptIds';
 
@@ -23,7 +23,10 @@ async function evaluateRequirementSplit(promptRepo: IPromptRepository, requireme
         requirement: requirement
     });
 
-    const response = await getModelResponse(prompt!.systemPrompt, userPrompt);
+    const chatDriverFactory = new ChatDriverFactory();
+    const chatDriver = chatDriverFactory.create (EModel.kLarge, EModelProvider.kOpenAI);    
+
+    const response = await chatDriver.getModelResponse(prompt!.systemPrompt, userPrompt);
     return extractCodeFencedContent(response);
 }
 

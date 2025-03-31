@@ -11,7 +11,7 @@ const guidelines = fs.readFileSync(path.join(__dirname, '../Src/RequirementsGuid
 
 import { requirementsGuidelineCheckerPromptId, requirementsSplitterPromptId, requirementsFinalImproverPromptId } from '../Src/PromptIds';
 
-import { PromptInMemoryRepository, IPromptRepository, IPrompt, getModelResponse, throwIfUndefined  } from "promptrepository";
+import { PromptInMemoryRepository, IPromptRepository, IPrompt, throwIfUndefined, IChatDriverFactory, EModel, EModelProvider, ChatDriverFactory } from "promptrepository";
 
 
 interface IRequirementExample {
@@ -99,11 +99,14 @@ async function getImprovedRequirement(promptRepo: IPromptRepository, id: string,
    const prompt = promptRepo.getPrompt(id);
    throwIfUndefined(prompt?.systemPrompt);
 
+   const chatDriverFactory = new ChatDriverFactory();
+   const chatDriver = chatDriverFactory.create (EModel.kLarge, EModelProvider.kOpenAI);
+
    const systemPrompt = prompt.systemPrompt;
 
    const userPrompt = promptRepo.expandUserPrompt(prompt!, params);
 
-   let evalResponse = await getModelResponse(systemPrompt, userPrompt);
+   let evalResponse = await chatDriver.getModelResponse(systemPrompt, userPrompt);
    const improvedRequirement = extractCodeFencedContent(evalResponse);
    throwIfUndefined(improvedRequirement);
 
