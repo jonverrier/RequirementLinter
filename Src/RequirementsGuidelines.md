@@ -88,3 +88,4 @@ This document provides a set of guidelines for writing good requirements, source
 | R41   | Related Needs and Requirements | Group related needs and requirements together. |
 | R42   | Structured Sets               | Conform to a defined structure or template for organizing sets of needs and requirements. |
 
+Copyright (c) 2025 Jon Verrier

@@ -3,7 +3,7 @@
  * Provides functionality to quickly check if a given statement looks like a system requirement.
  * Uses AI to evaluate the statement against standard requirement criteria.
  */
-
+// Copyright (c) 2025 Jon Verrier
 
 import { ChatDriverFactory, EModel, EModelProvider, IPrompt, PromptInMemoryRepository } from "promptrepository";
 import { requirementsFeasibilityCheckerPromptId } from "../Src/PromptIds";

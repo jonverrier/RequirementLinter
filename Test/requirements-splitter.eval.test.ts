@@ -2,6 +2,7 @@
  * @module requirements-splitter.eval.test
  * Integration tests for the evaluateRequirementSplit function.
  */
+// Copyright (c) 2025 Jon Verrier
 
 import { expect } from 'expect';
 import { describe, it } from 'mocha';

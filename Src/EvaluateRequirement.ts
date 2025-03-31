@@ -8,6 +8,7 @@
  * - Evaluating requirements against standard guidelines
  * - Improving requirement clarity and structure
  */
+// Copyright (c) 2025 Jon Verrier
 
 import path from "path";
 import fs from "fs";

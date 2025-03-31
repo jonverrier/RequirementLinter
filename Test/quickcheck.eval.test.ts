@@ -2,6 +2,7 @@
  * @module quickcheck.test
  * Integration tests for the quickChecLooksLikeRequirement function.
  */
+// Copyright (c) 2025 Jon Verrier
 
 import { expect } from 'expect';
 import { describe, it } from 'mocha';

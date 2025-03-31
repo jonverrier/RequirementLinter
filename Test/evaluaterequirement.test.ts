@@ -2,7 +2,7 @@
  * @module evaluaterequirement.eval.test
  * Integration tests for the reviewAndImproveRequirement function.
  */
-
+// Copyright (c) 2025 Jon Verrier
 
 import { describe, it } from 'mocha';
 import { expect } from 'expect';

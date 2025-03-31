@@ -3,4 +3,5 @@
  * 
  * Core interfaces and types for the WorkBench system.
  */
+// Copyright (c) 2025 Jon Verrier
 

@@ -2,6 +2,7 @@
  * @module requirements-feasibility.eval.test
  * Integration tests for the evaluateRequirementFeasibility function.
  */
+// Copyright (c) 2025 Jon Verrier
 
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
