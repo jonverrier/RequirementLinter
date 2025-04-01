@@ -3,7 +3,7 @@
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 
-import { reviewAndImproveRequirement } from '../src/EvaluateRequirement';
+import { evaluateRequirement } from '../src/EvaluateRequirement';
 
 interface IRequirementExample {
     unacceptable: string;
@@ -77,7 +77,7 @@ async function getRevisedRequirement(requirement: string, suggested: string[]) :
 
    let wordCount : number = requirement.length * 5;
 
-   const improvedRequirement = await reviewAndImproveRequirement(requirement);
+   const improvedRequirement = await evaluateRequirement({ requirement });
 
    //logAIResponseVsSuggested(requirement, improvedRequirement.proposedNewRequirement, suggested);
 

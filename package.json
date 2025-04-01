@@ -5,12 +5,12 @@
    "main": "dist/src/functions/*.js",
    "directories": {
       "src": "src",
-      "Test": "Test"
+      "test": "test"
    },
    "author": "Jon Verrier",
    "license": "MIT",
    "scripts": {
-      "build": "tsc -b",
+      "build": "tsc -b && ncp ./RequirementsGuidelines.md dist/RequirementsGuidelines.md",
       "watch": "tsc -b -w",
       "clean": "rimraf dist",
       "prestart": "npm run clean && npm run build",
@@ -27,6 +27,7 @@
       "azure-functions-core-tools": "^4.x",
       "expect": "^29.7.0",
       "mocha": "^11.1.0",
+      "ncp": "^2.0.0",
       "openai": "^4.89.1",
       "promptrepository": "file:../PromptRepository",
       "rimraf": "^6.0.1",

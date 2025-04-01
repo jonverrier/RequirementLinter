@@ -6,9 +6,9 @@
 
 import { describe, it } from 'mocha';
 import { expect } from 'expect';
-import { reviewAndImproveRequirement } from '../src/EvaluateRequirement';
+import { evaluateRequirement } from '../src/EvaluateRequirement';
 
-describe('reviewAndImproveRequirement Integration Tests', () => {
+describe('evaluateRequirement Integration Tests', () => {
     // Increase timeout for API calls
     const TEST_TIMEOUT = 30000; // 30 seconds as we have a large prompt with all the requirements
 
@@ -17,7 +17,7 @@ describe('reviewAndImproveRequirement Integration Tests', () => {
         const inputRequirement = 'The system must handle user authentication';
 
         // Act
-        const result = await reviewAndImproveRequirement(inputRequirement);
+        const result = await evaluateRequirement({ requirement: inputRequirement });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);
@@ -29,7 +29,7 @@ describe('reviewAndImproveRequirement Integration Tests', () => {
         const inputRequirement = 'The system must handle user authentication, perform data validation, and ensure proper error handling while maintaining high performance and scalability';
 
         // Act
-        const result = await reviewAndImproveRequirement(inputRequirement);
+        const result = await evaluateRequirement({ requirement: inputRequirement });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);
@@ -43,7 +43,7 @@ describe('reviewAndImproveRequirement Integration Tests', () => {
         const inputRequirement = '';
 
         // Act
-        await expect(reviewAndImproveRequirement(inputRequirement))
+        await expect(evaluateRequirement({ requirement: inputRequirement }))
             .rejects
             .toThrow();
     }).timeout(TEST_TIMEOUT);
@@ -53,7 +53,7 @@ describe('reviewAndImproveRequirement Integration Tests', () => {
         const inputRequirement = 'Must be fast';
 
         // Act
-        const result = await reviewAndImproveRequirement(inputRequirement);
+        const result = await evaluateRequirement({ requirement: inputRequirement });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);
@@ -67,7 +67,7 @@ describe('reviewAndImproveRequirement Integration Tests', () => {
         const inputRequirement = 'System must handle UTF-8 characters like: é, ñ, 漢字';
 
         // Act
-        const result = await reviewAndImproveRequirement(inputRequirement);
+        const result = await evaluateRequirement({ requirement: inputRequirement });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);

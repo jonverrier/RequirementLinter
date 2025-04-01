@@ -1,4 +1,8 @@
-
+/**
+ * @module quickcheck.function.test
+ * Integration tests for the QuickCheck API endpoint.
+ */
+// Copyright (c) 2025 Jon Verrier
 
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
@@ -7,7 +11,7 @@ import { IQuickCheckRequest, IQuickCheckResponse } from '../src/QuickCheck';
 
 const BASE_URL = 'http://localhost:7071/api'; // Adjust port if needed for local testing
 
-describe('Quickcheck API Endpoint', () => {
+describe('QuickCheck API Integration Tests', () => {
     const endpoint = `${BASE_URL}/quickcheck`;
     const TEST_TIMEOUT = 30000; // 30 seconds timeout for API calls
 
@@ -22,6 +26,7 @@ describe('Quickcheck API Endpoint', () => {
 
         expect(response.status).toBe(200);
         expect(result).toHaveProperty('isRequirement');
+        
     }).timeout(TEST_TIMEOUT);
 
     it('should handle empty statement', async () => {
@@ -53,6 +58,7 @@ describe('Quickcheck API Endpoint', () => {
 
         expect(response.status).toBe(200);
         expect(result).toHaveProperty('isRequirement');
+
     }).timeout(TEST_TIMEOUT);
 
     it('should handle missing beFriendly parameter', async () => {
@@ -65,5 +71,20 @@ describe('Quickcheck API Endpoint', () => {
 
         expect(response.status).toBe(200);
         expect(result).toHaveProperty('isRequirement');
+
+    }).timeout(TEST_TIMEOUT);
+
+    it('should handle GET request with valid statement', async () => {
+        const response = await axios.get(endpoint, {
+            params: {
+                statement: 'The system shall provide user authentication',
+                beFriendly: true
+            }
+        });
+        const result = response.data as IQuickCheckResponse;
+
+        expect(response.status).toBe(200);
+        expect(result).toHaveProperty('isRequirement');
+
     }).timeout(TEST_TIMEOUT);
 });

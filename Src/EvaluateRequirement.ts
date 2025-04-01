@@ -19,12 +19,15 @@ import prompts from './Prompts.json';
 
 const typedPrompts = prompts as IPrompt[];
 
-const guidelines = fs.readFileSync(path.join(__dirname, '../Src/RequirementsGuidelines.md'), 'utf-8');
+const guidelines = fs.readFileSync(path.join(__dirname, '../RequirementsGuidelines.md'), 'utf-8');
 
+export interface IRequirementEvaluationRequest {
+   requirement: string;
+}
 
-interface IRequirementEvaluation {
-    evaluation: string;
-    proposedNewRequirement: string;
+export interface IRequirementEvaluation {
+   evaluation: string;
+   proposedNewRequirement: string;
 }
 
 /**
@@ -34,12 +37,12 @@ interface IRequirementEvaluation {
  * @returns The text outside of code fences or an empty string if no content is found.
  */
 export function extractNonCodeFencedContent(response: string): string {
-    // Remove all code-fenced blocks
-    const withoutCodeBlocks = response.replace(/```(?:code|plaintext|requirement)?\s*[\s\S]*?```/g, '');
-    
-    // Trim and return the remaining text
-    let result = withoutCodeBlocks ? withoutCodeBlocks.trim() : '';
-    return result;
+   // Remove all code-fenced blocks
+   const withoutCodeBlocks = response.replace(/```(?:code|plaintext|requirement)?\s*[\s\S]*?```/g, '');
+
+   // Trim and return the remaining text
+   let result = withoutCodeBlocks ? withoutCodeBlocks.trim() : '';
+   return result;
 }
 
 /**
@@ -51,10 +54,10 @@ export function extractNonCodeFencedContent(response: string): string {
 export function extractCodeFencedContent(response: string): string {
    const codeBlocks = response.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/g);
    const codeBlockMatch = codeBlocks ? codeBlocks.map(block => {
-       const content = block.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/);
-       return content ? content[1] : '';
+      const content = block.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/);
+      return content ? content[1] : '';
    }).join('\n').trim() : null;
-   
+
    let result = codeBlockMatch ? codeBlockMatch.trim() : '';
    return result;
 }
@@ -67,23 +70,23 @@ export function extractCodeFencedContent(response: string): string {
  * @returns A promise resolving to the improved requirement extracted from code-fenced content
  */
 export async function improveRequirementWithPrompt(
-  promptId: string, 
-  params: { [key: string]: string }
+   promptId: string,
+   params: { [key: string]: string }
 ): Promise<IRequirementEvaluation> {
-    // Load & expend the prompt
-    const promptRepo = new PromptInMemoryRepository(typedPrompts);
-    const prompt = promptRepo.getPrompt(promptId);
-    const userPrompt = promptRepo.expandUserPrompt(prompt!, params);
+   // Load & expend the prompt
+   const promptRepo = new PromptInMemoryRepository(typedPrompts);
+   const prompt = promptRepo.getPrompt(promptId);
+   const userPrompt = promptRepo.expandUserPrompt(prompt!, params);
 
-    // Get the response from the model
-    const chatDriverFactory = new ChatDriverFactory();
-    const chatDriver = chatDriverFactory.create(EModel.kLarge, EModelProvider.kOpenAI);    
-    const response = await chatDriver.getModelResponse(prompt!.systemPrompt, userPrompt);
+   // Get the response from the model
+   const chatDriverFactory = new ChatDriverFactory();
+   const chatDriver = chatDriverFactory.create(EModel.kLarge, EModelProvider.kOpenAI);
+   const response = await chatDriver.getModelResponse(prompt!.systemPrompt, userPrompt);
 
-    return {
-        evaluation: extractNonCodeFencedContent(response),
-        proposedNewRequirement: extractCodeFencedContent(response)
-    };
+   return {
+      evaluation: extractNonCodeFencedContent(response),
+      proposedNewRequirement: extractCodeFencedContent(response)
+   };
 }
 
 
@@ -96,14 +99,14 @@ export async function improveRequirementWithPrompt(
  */
 export async function improveRequirement(requirement: string, wordCount: number): Promise<IRequirementEvaluation> {
 
-    if (!requirement || requirement.trim().length === 0) {
-        throw new InvalidParameterError('InvalidParameter: Requirement cannot be empty');
-    }
-    if (!wordCount || wordCount <= 0) {
+   if (!requirement || requirement.trim().length === 0) {
+      throw new InvalidParameterError('InvalidParameter: Requirement cannot be empty');
+   }
+   if (!wordCount || wordCount <= 0) {
       throw new InvalidParameterError('InvalidParameter: Word count must be greater than 0');
-    }    
+   }
 
-    let evaluation = await improveRequirementWithPrompt(requirementsGuidelineCheckerPromptId, {
+   let evaluation = await improveRequirementWithPrompt(requirementsGuidelineCheckerPromptId, {
       guidelines: guidelines,
       requirement: requirement,
       wordCount: wordCount.toString()
@@ -120,11 +123,11 @@ export async function improveRequirement(requirement: string, wordCount: number)
  * @returns A promise resolving to the evaluated requirement.
  */
 export async function improveRequirementSplit(requirement: string): Promise<IRequirementEvaluation> {
-    let evaluation = await improveRequirementWithPrompt(requirementsSplitterPromptId, {  
+   let evaluation = await improveRequirementWithPrompt(requirementsSplitterPromptId, {
       requirement: requirement
-    });
+   });
 
-    return evaluation;
+   return evaluation;
 }
 
 /**
@@ -134,15 +137,15 @@ export async function improveRequirementSplit(requirement: string): Promise<IReq
  * @param wordCount - The word count to use to generate comments on the requirement.
  * @returns A promise resolving to the evaluated requirement.
  */
-export async function reviewAndImproveRequirement(requirement: string) : Promise<IRequirementEvaluation> {
+export async function evaluateRequirement(request: IRequirementEvaluationRequest): Promise<IRequirementEvaluation> {
 
-   let wordCount : number = requirement.length * 5;
+   let wordCount: number = request.requirement.length * 5;
 
-   const improvedRequirement = await improveRequirement(requirement, wordCount);
+   const improvedRequirement = await improveRequirement(request.requirement, wordCount);
    let splitRequirement = await improveRequirementSplit(improvedRequirement.proposedNewRequirement);
 
    return {
-    evaluation: improvedRequirement.evaluation,
-    proposedNewRequirement: splitRequirement.proposedNewRequirement
+      evaluation: improvedRequirement.evaluation,
+      proposedNewRequirement: splitRequirement.proposedNewRequirement
    }
 }

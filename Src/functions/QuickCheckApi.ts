@@ -1,5 +1,5 @@
 /**
- * @module quickcheck
+ * @module QuickCheckApi
  * Azure Function that provides an HTTP endpoint for quickly checking if a given statement
  * looks like a system requirement. 
  */
@@ -8,16 +8,23 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { quickCheckLooksLikeRequirement, IQuickCheckRequest, IQuickCheckResponse } from "../QuickCheck";
 
-export async function quickcheck(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+export async function quickCheckApi(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
 
    context.log(`Http function processed request for url "${request.url}"`);
 
    try {
-      const body = await request.json() as IQuickCheckRequest;
-      context.log(`Request: ${JSON.stringify(body)}`);
+      let statement = '';
+      let beFriendly = true;
 
-      const statement = body.statement || '';
-      const beFriendly = body.beFriendly || true;
+      if (request.method === 'GET') {
+         statement = request.query.get('statement') || '';
+         beFriendly = request.query.get('beFriendly')?.toLowerCase() === 'false' ? false : true;
+      } else {
+         const body = await request.json() as IQuickCheckRequest;
+         context.log(`Request: ${JSON.stringify(body)}`);
+         statement = body.statement || '';
+         beFriendly = body.beFriendly ?? true;
+      }
 
       const response: IQuickCheckResponse = await quickCheckLooksLikeRequirement({ statement, beFriendly });
 
@@ -31,8 +38,8 @@ export async function quickcheck(request: HttpRequest, context: InvocationContex
    }
 };
 
-app.http('quickcheck', {
+app.http('QuickCheck', {
    methods: ['GET', 'POST'],
    authLevel: 'anonymous',
-   handler: quickcheck
+   handler: quickCheckApi
 });
