@@ -13,7 +13,7 @@
 import path from "path";
 import fs from "fs";
 
-import { EModel, EModelProvider, ChatDriverFactory, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "promptrepository";
+import { EModel, EModelProvider, ChatDriverFactory, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "prompt-repository";
 import { requirementsGuidelineCheckerPromptId, requirementsSplitterPromptId } from './PromptIds';
 import prompts from './Prompts.json';
 

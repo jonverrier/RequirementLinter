@@ -6,7 +6,7 @@
 
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
-import { PromptInMemoryRepository, IPromptRepository, IPrompt, EModel, EModelProvider, ChatDriverFactory } from "promptrepository";
+import { PromptInMemoryRepository, IPromptRepository, IPrompt, EModel, EModelProvider, ChatDriverFactory } from "prompt-repository";
 import prompts from '../src/Prompts.json';
 import { requirementsFeasibilityCheckerPromptId } from '../src/PromptIds';
 

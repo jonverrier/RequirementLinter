@@ -7,9 +7,9 @@
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 import { quickCheckLooksLikeRequirement } from '../src/QuickCheck';
-import { EModelProvider } from 'promptrepository';
-import { EModel } from 'promptrepository';
-import { ChatDriverFactory } from 'promptrepository';
+import { EModelProvider } from 'prompt-repository';
+import { EModel } from 'prompt-repository';
+import { ChatDriverFactory } from 'prompt-repository';
 import sinon from 'sinon';
 
 describe('quickCheckLooksLikeRequirement Integration Tests', () => {

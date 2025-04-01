@@ -5,7 +5,7 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
-import { ChatDriverFactory, EModel, EModelProvider, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "promptrepository";
+import { ChatDriverFactory, EModel, EModelProvider, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "prompt-repository";
 import { requirementsFeasibilityCheckerPromptId } from "./PromptIds";
 import prompts from "./Prompts.json";
 const typedPrompts = prompts as IPrompt[];

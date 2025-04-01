@@ -1,7 +1,7 @@
 {
-   "name": "workbench",
+   "name": "requirements-linter",
    "version": "0.1.0",
-   "description": "Main functions for the AI-enabled software lifecycle workbench",
+   "description": "Requirements linter functions for the AI-enabled software lifecycle workbench",
    "main": "dist/src/entry.js",
    "directories": {
       "src": "src",
@@ -10,7 +10,8 @@
    "author": "Jon Verrier",
    "license": "MIT",
    "scripts": {
-      "build": "tsc -b && ncp ./src/RequirementsGuidelines.md dist/RequirementsGuidelines.md",
+      "build": "npm run install && tsc -b && ncp ./src/RequirementsGuidelines.md dist/RequirementsGuidelines.md",
+      "install": "npm install ../PromptRepository",
       "watch": "tsc -b -w",
       "clean": "rimraf dist",
       "prestart": "npm run clean && npm run build",
@@ -28,13 +29,11 @@
       "mocha": "^11.1.0",
       "ncp": "^2.0.0",
       "openai": "^4.89.1",
-      "promptrepository": "file:../PromptRepository",
+      "prompt-repository": "file:../PromptRepository",
       "rimraf": "^6.0.1",
       "sinon": "^20.0.0",
       "ts-node": "^10.9.2",
       "tslib": "^2.8.1",
       "typescript": "^5.7.3"
-   },
-   "dependencies": {
    }
 }
