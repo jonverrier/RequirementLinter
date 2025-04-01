@@ -70,10 +70,13 @@ The functional tests are in [test/general.eval.test.ts](test/general.eval.test.t
 ## Development
 
 To install:
+
+Clone the companion [PromptRespository repo](https://github.com/jonverrier/PromptRespository). 
+
 ```bash
 npm i
 
-Ensure you have set your OpenAI API key as an environment variable: OPENAI_API_KEY
+Ensure you have set your OpenAI API key as an environment variable: OPENAI_API_KEY, and that the PromptRespository package points to your local version.
 
 npm run build
 ```
@@ -81,5 +84,24 @@ To run tests:
 ```bash
 npm run test
 ```
-
 Note that the tests do not always succeed. The case that fails most often is reference to a standard for the following test: "The <SOI> shall not contain mercury.". The guidlines state a better form should have conditional and qualification clauses, and key terms defined in the project glossary or data dictionary. So far no amount of prompt engineering has caught this - it's still a work in progress.  
+
+To run the web app front end:
+```bash
+
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request against the development branch in the main repo. 
+
+## License
+
+MIT
+Copyright (c) 2025 Jon Verrier
