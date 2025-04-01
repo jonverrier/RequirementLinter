@@ -38,7 +38,7 @@ The Speedometer shall display speed in kph.
 
 To generate a set of guidelines for well-formed requirements, I took the document from the [International Council of Systems Engineering 'Guide to Writing Requirements'](https://www.incose.org/docs/default-source/working-groups/requirements-wg/gtwr/incose_rwg_gtwr_v4_040423_final_drafts.pdf). The GtWR is a mature product that is widely used in the industry. 
 
-I used Chat GPT to reformat the various tables in the document into plan Markdown tables. The resulting set of textual guidelines is in [RequirementsGuidelines.md](RequirementsGuidelines.md).
+I used Chat GPT to reformat the various tables in the document into plan Markdown tables. The resulting set of textual guidelines is in [src/RequirementsGuidelines.md](src/RequirementsGuidelines.md).
 
 I then use the guidlines to build a prompt: 
 ````code
