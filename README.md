@@ -86,10 +86,6 @@ npm run test
 ```
 Note that the tests do not always succeed. The case that fails most often is reference to a standard for the following test: "The <SOI> shall not contain mercury.". The guidlines state a better form should have conditional and qualification clauses, and key terms defined in the project glossary or data dictionary. So far no amount of prompt engineering has caught this - it's still a work in progress.  
 
-To run the web app front end:
-```bash
-
-```
 
 ## Contributing
 
