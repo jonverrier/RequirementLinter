@@ -38,7 +38,7 @@ describe('Requirements Splitter Tests', () => {
 
         // Should have multiple "shall/must" statements
         const shallCount = (response.proposedNewRequirement.toLowerCase().match(/(shall|must)/g) || []).length;
-        console.log(response.proposedNewRequirement);
+
         expect(shallCount).toBeGreaterThan(1);
     }).timeout(TEST_TIMEOUT);
 });
