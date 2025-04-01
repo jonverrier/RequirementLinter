@@ -10,7 +10,7 @@
    "author": "Jon Verrier",
    "license": "MIT",
    "scripts": {
-      "build": "npm run install && tsc -b && ncp ./src/RequirementsGuidelines.md dist/RequirementsGuidelines.md",
+      "build": "npm run install && tsc -b && ncp ./src/RequirementsGuidelines.md dist/src/RequirementsGuidelines.md",
       "install": "npm install ../PromptRepository",
       "watch": "tsc -b -w",
       "clean": "rimraf dist",

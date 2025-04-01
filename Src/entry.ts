@@ -5,8 +5,8 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
-export { evaluateRequirement } from "./EvaluateRequirement";
-export { quickCheckLooksLikeRequirement } from "./QuickCheck";
+export { evaluateRequirement, IRequirementEvaluation, IRequirementEvaluationRequest} from "./EvaluateRequirement";
+export { quickCheckLooksLikeRequirement, IQuickCheckResponse, IQuickCheckRequest } from "./QuickCheck";
 
 
 
