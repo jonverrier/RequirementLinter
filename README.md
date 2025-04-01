@@ -2,7 +2,7 @@
 
 Because no-one wants a fluffy requirement.
 
-**Requirements Linter** is an LLM-powered tool for automatically reviewing and improving software requirements according to established guidelines. The Requirements Linter helps ensure requirements are clear, measurable, and properly structured.
+**Requirements Linter** is an LLM-powered tool for reviewing and improving software requirements according to established guidelines. The Requirements Linter helps ensure requirements are clear, measurable, and properly structured.
 
 ## Features
 
