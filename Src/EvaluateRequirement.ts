@@ -19,7 +19,7 @@ import prompts from './Prompts.json';
 
 const typedPrompts = prompts as IPrompt[];
 
-const guidelines = fs.readFileSync(path.join(__dirname, '../RequirementsGuidelines.md'), 'utf-8');
+const guidelines = fs.readFileSync(path.join(__dirname, './RequirementsGuidelines.md'), 'utf-8');
 
 export interface IRequirementEvaluationRequest {
    requirement: string;

@@ -24,7 +24,6 @@
       "@types/node": "^22.13.8",
       "@types/sinon": "^17.0.4",
       "axios": "^1.8.4",
-      "azure-functions-core-tools": "^4.x",
       "expect": "^29.7.0",
       "mocha": "^11.1.0",
       "ncp": "^2.0.0",
@@ -37,6 +36,5 @@
       "typescript": "^5.7.3"
    },
    "dependencies": {
-      "@azure/functions": "^4.0.0"
    }
 }
