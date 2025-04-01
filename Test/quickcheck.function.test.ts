@@ -9,6 +9,7 @@ const BASE_URL = 'http://localhost:7071/api'; // Adjust port if needed for local
 
 describe('Quickcheck API Endpoint', () => {
     const endpoint = `${BASE_URL}/quickcheck`;
+    const TEST_TIMEOUT = 30000; // 30 seconds timeout for API calls
 
     it('should check a valid requirement statement', async () => {
         const request: IQuickCheckRequest = {
@@ -21,7 +22,7 @@ describe('Quickcheck API Endpoint', () => {
 
         expect(response.status).toBe(200);
         expect(result).toHaveProperty('isRequirement');
-    });
+    }).timeout(TEST_TIMEOUT);
 
     it('should handle empty statement', async () => {
         const request: IQuickCheckRequest = {
@@ -39,7 +40,7 @@ describe('Quickcheck API Endpoint', () => {
                 throw error;
             }
         }
-    });
+    }).timeout(TEST_TIMEOUT);
 
     it('should work with beFriendly set to false', async () => {
         const request: IQuickCheckRequest = {
@@ -52,7 +53,7 @@ describe('Quickcheck API Endpoint', () => {
 
         expect(response.status).toBe(200);
         expect(result).toHaveProperty('isRequirement');
-    });
+    }).timeout(TEST_TIMEOUT);
 
     it('should handle missing beFriendly parameter', async () => {
         const request = {
@@ -64,5 +65,5 @@ describe('Quickcheck API Endpoint', () => {
 
         expect(response.status).toBe(200);
         expect(result).toHaveProperty('isRequirement');
-    });
+    }).timeout(TEST_TIMEOUT);
 });

@@ -5,7 +5,7 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
-import { ChatDriverFactory, EModel, EModelProvider, IPrompt, PromptInMemoryRepository } from "promptrepository";
+import { ChatDriverFactory, EModel, EModelProvider, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "promptrepository";
 import { requirementsFeasibilityCheckerPromptId } from "./PromptIds";
 import prompts from "./Prompts.json";
 const typedPrompts = prompts as IPrompt[];
@@ -26,6 +26,10 @@ export interface IQuickCheckResponse {
  * @returns True if the statement looks like a system requirement, false otherwise.
  */
 export async function quickCheckLooksLikeRequirement (request: IQuickCheckRequest) : Promise<IQuickCheckResponse> {
+
+    if (!request.statement) {
+        throw new InvalidParameterError("Statement is required.");
+    }
 
     // Create a fast chat driver
     const chatDriverFactory = new ChatDriverFactory();
