@@ -19,6 +19,7 @@ import prompts from './Prompts.json';
 
 const typedPrompts = prompts as IPrompt[];
 
+const NO_MATERIAL_CHANGE_WORD_COUNT = 10;
 const MIN_WORD_COUNT = 50;
 const MAX_WORD_COUNT = 500;
 
@@ -149,6 +150,14 @@ export async function evaluateRequirement(request: IRequirementEvaluationRequest
 
    const improvedRequirement = await improveRequirement(request.requirement, wordCount);
    let splitRequirement = await improveRequirementSplit(improvedRequirement.proposedNewRequirement);
+
+   if (splitRequirement.proposedNewRequirement.trim().split(/\s+/).length < NO_MATERIAL_CHANGE_WORD_COUNT) {
+      return {
+         evaluation: "Good work.",
+         proposedNewRequirement: splitRequirement.proposedNewRequirement
+      }
+   }
+
 
    return {
       evaluation: improvedRequirement.evaluation,
