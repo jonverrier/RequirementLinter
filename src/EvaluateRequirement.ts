@@ -19,7 +19,7 @@ import prompts from './Prompts.json';
 
 const typedPrompts = prompts as IPrompt[];
 
-const NO_MATERIAL_CHANGE_WORD_COUNT = 10;
+const NO_MATERIAL_CHANGE_WORD_COUNT = 15;
 const MIN_WORD_COUNT = 50;
 const MAX_WORD_COUNT = 500;
 
@@ -138,6 +138,10 @@ export async function improveRequirementSplit(requirement: string): Promise<IReq
    return evaluation;
 }
 
+function countWords(str: string): number {
+   return str.split(/\s+/).reduce((count, word) => word.length > 0 ? count + 1 : count, 0);
+}
+
 /**
  * Evaluates a requirement against the standard guidelines.
  * 
@@ -149,15 +153,17 @@ export async function evaluateRequirement(request: IRequirementEvaluationRequest
    let wordCount: number = Math.min(Math.max(request.requirement.length * 5, MIN_WORD_COUNT), MAX_WORD_COUNT);
 
    const improvedRequirement = await improveRequirement(request.requirement, wordCount);
-   let splitRequirement = await improveRequirementSplit(improvedRequirement.proposedNewRequirement);
 
-   if (splitRequirement.proposedNewRequirement.trim().split(/\s+/).length < NO_MATERIAL_CHANGE_WORD_COUNT) {
+   const revisedWordCount = countWords(improvedRequirement.evaluation);
+   
+   if (revisedWordCount < NO_MATERIAL_CHANGE_WORD_COUNT) {
       return {
          evaluation: "Good work.",
-         proposedNewRequirement: splitRequirement.proposedNewRequirement
+         proposedNewRequirement: improvedRequirement.proposedNewRequirement
       }
    }
 
+   let splitRequirement = await improveRequirementSplit(improvedRequirement.proposedNewRequirement);
 
    return {
       evaluation: improvedRequirement.evaluation,
