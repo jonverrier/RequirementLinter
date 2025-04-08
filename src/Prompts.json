@@ -90,7 +90,7 @@
       "description": "Reviews some text to see if it looks like a requirements statement.",
       "version": "1.0",
       "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language.",
-      "userPrompt": "Here is a statement that is potentially a draft of a system requirement:\n```statement\n{statement}\n```\n. Review the statement and respond with a simple 'YES' or 'NO' to indicate if it looks like th writer is drafting a requirement.",
+      "userPrompt": "Here is a statement that a draft of or part of a system specification:\n```statement\n{statement}\n```\n. Review the statement and respond with a simple 'YES' or 'NO' to indicate if it looks like the statement is a draft or part of a system specification. The writer may be inexperienced and looking for help, so even if it is not a good draft, respond 'YES'. If the statement really does not look like a draft or part of a system specification, respond with 'NO'.",
       "userPromptParameters": [
          {
             "name": "statement",

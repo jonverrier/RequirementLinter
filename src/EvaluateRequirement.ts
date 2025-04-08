@@ -19,6 +19,9 @@ import prompts from './Prompts.json';
 
 const typedPrompts = prompts as IPrompt[];
 
+const MIN_WORD_COUNT = 50;
+const MAX_WORD_COUNT = 500;
+
 const guidelines = fs.readFileSync(path.join(__dirname, './RequirementsGuidelines.md'), 'utf-8');
 
 export interface IRequirementEvaluationRequest {
@@ -31,18 +34,22 @@ export interface IRequirementEvaluation {
 }
 
 /**
- * Extracts all text except code-fenced content from a given response string.
+ * Extracts all text up to the first code fence in a given response string.
  * 
  * @param response - The response string containing code-fenced content.
- * @returns The text outside of code fences or an empty string if no content is found.
+ * @returns The text before the first code fence or the entire text if no code fence is found.
  */
 export function extractNonCodeFencedContent(response: string): string {
-   // Remove all code-fenced blocks
-   const withoutCodeBlocks = response.replace(/```(?:code|plaintext|requirement)?\s*[\s\S]*?```/g, '');
-
-   // Trim and return the remaining text
-   let result = withoutCodeBlocks ? withoutCodeBlocks.trim() : '';
-   return result;
+   // Find the first code fence
+   const firstCodeFenceIndex = response.search(/```(?:code|plaintext|requirement)?/);
+   
+   // If no code fence found, return the entire text
+   if (firstCodeFenceIndex === -1) {
+      return response.trim();
+   }
+   
+   // Return text up to the first code fence
+   return response.substring(0, firstCodeFenceIndex).trim();
 }
 
 /**
@@ -134,12 +141,11 @@ export async function improveRequirementSplit(requirement: string): Promise<IReq
  * Evaluates a requirement against the standard guidelines.
  * 
  * @param requirement - The requirement to be evaluated.
- * @param wordCount - The word count to use to generate comments on the requirement.
  * @returns A promise resolving to the evaluated requirement.
  */
 export async function evaluateRequirement(request: IRequirementEvaluationRequest): Promise<IRequirementEvaluation> {
 
-   let wordCount: number = request.requirement.length * 5;
+   let wordCount: number = Math.min(Math.max(request.requirement.length * 5, MIN_WORD_COUNT), MAX_WORD_COUNT);
 
    const improvedRequirement = await improveRequirement(request.requirement, wordCount);
    let splitRequirement = await improveRequirementSplit(improvedRequirement.proposedNewRequirement);
