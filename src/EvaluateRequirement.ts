@@ -134,7 +134,10 @@ function countWords(str: string): number {
  */
 export async function evaluateRequirement(request: IRequirementEvaluationRequest): Promise<IRequirementEvaluation> {
 
-   let wordCount: number = Math.min(Math.max(request.requirement.length * 5, MIN_WORD_COUNT), MAX_WORD_COUNT);
+   // The input is usually present in the output twice. We bracket this with min and max absolute incremental words. 
+   let wordCount: number = Math.min(Math.max(request.requirement.length * 5, 
+      request.requirement.length * 2 + MIN_WORD_COUNT), 
+      request.requirement.length * 2 + MAX_WORD_COUNT);
 
    const improvedRequirement = await improveRequirement(request.requirement, wordCount);
 
