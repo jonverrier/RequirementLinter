@@ -19,9 +19,8 @@ import prompts from './Prompts.json';
 
 const typedPrompts = prompts as IPrompt[];
 
-const NO_MATERIAL_CHANGE_WORD_COUNT = 15;
-const MIN_WORD_COUNT = 50;
-const MAX_WORD_COUNT = 500;
+const MIN_WORD_COUNT = 100;
+const MAX_WORD_COUNT = 400;
 
 const guidelines = fs.readFileSync(path.join(__dirname, './RequirementsGuidelines.md'), 'utf-8');
 
@@ -35,39 +34,24 @@ export interface IRequirementEvaluation {
 }
 
 /**
- * Extracts all text up to the first code fence in a given response string.
- * 
- * @param response - The response string containing code-fenced content.
- * @returns The text before the first code fence or the entire text if no code fence is found.
- */
-export function extractNonCodeFencedContent(response: string): string {
-   // Find the first code fence
-   const firstCodeFenceIndex = response.search(/```(?:code|plaintext|requirement)?/);
-   
-   // If no code fence found, return the entire text
-   if (firstCodeFenceIndex === -1) {
-      return response.trim();
-   }
-   
-   // Return text up to the first code fence
-   return response.substring(0, firstCodeFenceIndex).trim();
-}
-
-/**
- * Extracts code-fenced content from a given response string.
+ * Extracts all code-fenced content from a given response string.
  * 
  * @param response - The response string containing code-fenced content.
  * @returns The extracted code-fenced content or an empty string if no content is found.
  */
 export function extractCodeFencedContent(response: string): string {
    const codeBlocks = response.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/g);
-   const codeBlockMatch = codeBlocks ? codeBlocks.map(block => {
-      const content = block.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/);
-      return content ? content[1] : '';
-   }).join('\n').trim() : null;
+   if (!codeBlocks) {
+      return '';
+   }
 
-   let result = codeBlockMatch ? codeBlockMatch.trim() : '';
-   return result;
+   return codeBlocks
+      .map(block => {
+         const content = block.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/);
+         return content ? content[1].trim() : '';
+      })
+      .filter(content => content.length > 0)
+      .join('\n\n');
 }
 
 /**
@@ -92,7 +76,7 @@ export async function improveRequirementWithPrompt(
    const response = await chatDriver.getModelResponse(prompt!.systemPrompt, userPrompt);
 
    return {
-      evaluation: extractNonCodeFencedContent(response),
+      evaluation: response,
       proposedNewRequirement: extractCodeFencedContent(response)
    };
 }
@@ -153,15 +137,6 @@ export async function evaluateRequirement(request: IRequirementEvaluationRequest
    let wordCount: number = Math.min(Math.max(request.requirement.length * 5, MIN_WORD_COUNT), MAX_WORD_COUNT);
 
    const improvedRequirement = await improveRequirement(request.requirement, wordCount);
-
-   const revisedWordCount = countWords(improvedRequirement.evaluation);
-   
-   if (revisedWordCount < NO_MATERIAL_CHANGE_WORD_COUNT) {
-      return {
-         evaluation: "Good work.",
-         proposedNewRequirement: improvedRequirement.proposedNewRequirement
-      }
-   }
 
    let splitRequirement = await improveRequirementSplit(improvedRequirement.proposedNewRequirement);
 
