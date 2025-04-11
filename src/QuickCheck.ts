@@ -13,6 +13,7 @@ const typedPrompts = prompts as IPrompt[];
 export interface IQuickCheckRequest {
     statement: string;
     beFriendly?: boolean | undefined;
+    sessionId: string;
 }
 
 export interface IQuickCheckResponse {

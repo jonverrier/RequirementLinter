@@ -5,6 +5,8 @@ import { describe, it } from 'mocha';
 
 import { evaluateRequirement } from '../src/EvaluateRequirement';
 
+const SESSION_ID = '1234567890';
+
 interface IRequirementExample {
     unacceptable: string;
     improved: string[];
@@ -77,7 +79,7 @@ async function getRevisedRequirement(requirement: string, suggested: string[]) :
 
    let wordCount : number = requirement.length * 5;
 
-   const improvedRequirement = await evaluateRequirement({ requirement });
+   const improvedRequirement = await evaluateRequirement({ requirement, sessionId: SESSION_ID });
 
    //logAIResponseVsSuggested(requirement, improvedRequirement.proposedNewRequirement, suggested);
 

@@ -76,6 +76,8 @@ describe('extractCodeFencedContent Unit Tests', () => {
     });
 });
 
+const SESSION_ID = '1234567890';
+
 describe('evaluateRequirement Integration Tests', () => {
     // Increase timeout for API calls
     const TEST_TIMEOUT = 30000; // 30 seconds as we have a large prompt with all the requirements
@@ -85,7 +87,7 @@ describe('evaluateRequirement Integration Tests', () => {
         const inputRequirement = 'The system must handle user authentication';
 
         // Act
-        const result = await evaluateRequirement({ requirement: inputRequirement });
+        const result = await evaluateRequirement({ requirement: inputRequirement, sessionId: SESSION_ID });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);
@@ -97,7 +99,7 @@ describe('evaluateRequirement Integration Tests', () => {
         const inputRequirement = 'The system must handle user authentication, perform data validation, and ensure proper error handling while maintaining high performance and scalability';
 
         // Act
-        const result = await evaluateRequirement({ requirement: inputRequirement });
+        const result = await evaluateRequirement({ requirement: inputRequirement, sessionId: SESSION_ID });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);
@@ -111,7 +113,7 @@ describe('evaluateRequirement Integration Tests', () => {
         const inputRequirement = '';
 
         // Act
-        await expect(evaluateRequirement({ requirement: inputRequirement }))
+        await expect(evaluateRequirement({ requirement: inputRequirement, sessionId: SESSION_ID }))
             .rejects
             .toThrow();
     }).timeout(TEST_TIMEOUT);
@@ -121,7 +123,7 @@ describe('evaluateRequirement Integration Tests', () => {
         const inputRequirement = 'Must be fast';
 
         // Act
-        const result = await evaluateRequirement({ requirement: inputRequirement });
+        const result = await evaluateRequirement({ requirement: inputRequirement, sessionId: SESSION_ID });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);
@@ -135,7 +137,7 @@ describe('evaluateRequirement Integration Tests', () => {
         const inputRequirement = 'System must handle UTF-8 characters like: é, ñ, 漢字';
 
         // Act
-        const result = await evaluateRequirement({ requirement: inputRequirement });
+        const result = await evaluateRequirement({ requirement: inputRequirement, sessionId: SESSION_ID });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);

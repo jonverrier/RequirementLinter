@@ -12,6 +12,8 @@ import { EModel } from 'prompt-repository';
 import { ChatDriverFactory } from 'prompt-repository';
 import sinon from 'sinon';
 
+const SESSION_ID = '1234567890';
+
 describe('quickCheckLooksLikeRequirement Integration Tests', () => {
    const TEST_TIMEOUT = 30000; // 30 seconds timeout for API calls
 
@@ -23,19 +25,19 @@ describe('quickCheckLooksLikeRequirement Integration Tests', () => {
 
    it('should identify a clear requirement statement', async () => {
       const input = "The system shall process user requests within 200ms.";
-      const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true });
+      const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true, sessionId: SESSION_ID });
       expect(result.isRequirement).toBe(true);
    }).timeout(TEST_TIMEOUT);
 
    it('should identify another valid requirement', async () => {
       const input = "The application shall support a minimum of 1000 concurrent users.";
-      const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true });
+      const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true, sessionId: SESSION_ID });
       expect(result.isRequirement).toBe(true);
    }).timeout(TEST_TIMEOUT);
 
    it('should reject a non-requirement statement', async () => {
       const input = "I really like cheese.";
-      const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true });
+      const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true, sessionId: SESSION_ID });
       expect(result.isRequirement).toBe(false);
    }).timeout(TEST_TIMEOUT);
 
@@ -50,7 +52,7 @@ describe('quickCheckLooksLikeRequirement Integration Tests', () => {
       let result = { isRequirement: false };
 
       try {
-         result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true });
+         result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true, sessionId: SESSION_ID });
       } finally {
          mock.restore();
       }
@@ -68,7 +70,7 @@ describe('quickCheckLooksLikeRequirement Integration Tests', () => {
       let result = { isRequirement: true };
 
       try {
-         result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: false });
+         result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: false, sessionId: SESSION_ID });
       } finally {
          mock.restore();
       }
@@ -78,7 +80,7 @@ describe('quickCheckLooksLikeRequirement Integration Tests', () => {
 
    it('should identify technical requirement', async () => {
       const input = "The database shall be available for 99.5% of business hours.";
-      const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true });
+      const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true, sessionId: SESSION_ID });
       expect(result.isRequirement).toBe(true);
    }).timeout(TEST_TIMEOUT);
 });

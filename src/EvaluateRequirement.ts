@@ -26,6 +26,7 @@ const guidelines = fs.readFileSync(path.join(__dirname, './RequirementsGuideline
 
 export interface IRequirementEvaluationRequest {
    requirement: string;
+   sessionId: string;
 }
 
 export interface IRequirementEvaluation {
