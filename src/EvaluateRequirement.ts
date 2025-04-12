@@ -13,6 +13,8 @@
 import path from "path";
 import fs from "fs";
 
+import { IRequirementEvaluation, IRequirementEvaluationRequest } from "../export/RequirementsLinterApiTypes";
+
 import { EModel, EModelProvider, ChatDriverFactory, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "prompt-repository";
 import { requirementsGuidelineCheckerPromptId, requirementsSplitterPromptId } from './PromptIds';
 import prompts from './Prompts.json';
@@ -23,16 +25,6 @@ const MIN_WORD_COUNT = 100;
 const MAX_WORD_COUNT = 400;
 
 const guidelines = fs.readFileSync(path.join(__dirname, './RequirementsGuidelines.md'), 'utf-8');
-
-export interface IRequirementEvaluationRequest {
-   requirement: string;
-   sessionId: string;
-}
-
-export interface IRequirementEvaluation {
-   evaluation: string;
-   proposedNewRequirement: string;
-}
 
 /**
  * Extracts all code-fenced content from a given response string.

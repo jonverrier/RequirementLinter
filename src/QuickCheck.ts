@@ -5,20 +5,12 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
+import { IQuickCheckRequest, IQuickCheckResponse } from "../export/RequirementsLinterApiTypes";
+
 import { ChatDriverFactory, EModel, EModelProvider, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "prompt-repository";
 import { requirementsFeasibilityCheckerPromptId } from "./PromptIds";
 import prompts from "./Prompts.json";
 const typedPrompts = prompts as IPrompt[];
-
-export interface IQuickCheckRequest {
-    statement: string;
-    beFriendly?: boolean | undefined;
-    sessionId: string;
-}
-
-export interface IQuickCheckResponse {
-    isRequirement: boolean;
-}
 
 /**
  * Checks if a given statement looks like a system requirement.

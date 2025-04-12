@@ -5,8 +5,15 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
-export { evaluateRequirement, IRequirementEvaluation, IRequirementEvaluationRequest} from "./EvaluateRequirement";
-export { quickCheckLooksLikeRequirement, IQuickCheckResponse, IQuickCheckRequest } from "./QuickCheck";
+export {
+    IRequirementEvaluation,
+    IRequirementEvaluationRequest,
+    IQuickCheckResponse,
+    IQuickCheckRequest
+} from "../export/RequirementsLinterApiTypes";
+
+export { evaluateRequirement} from "./EvaluateRequirement";
+export { quickCheckLooksLikeRequirement } from "./QuickCheck";
 
 
 
