@@ -16,7 +16,8 @@ import fs from "fs";
 import { IRequirementEvaluation, IRequirementEvaluationRequest } from "../export/RequirementsLinterApiTypes";
 
 import { EModel, EModelProvider, ChatDriverFactory, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "prompt-repository";
-import { requirementsGuidelineCheckerPromptId, requirementsSplitterPromptId } from './PromptIds';
+import { requirementsGuidelineCheckerPromptId, requirementsSplitterPromptId, userStoryGuidelineCheckerPromptId } from './PromptIds';
+
 import prompts from './Prompts.json';
 
 const typedPrompts = prompts as IPrompt[];
@@ -24,7 +25,8 @@ const typedPrompts = prompts as IPrompt[];
 const MIN_WORD_COUNT = 100;
 const MAX_WORD_COUNT = 400;
 
-const guidelines = fs.readFileSync(path.join(__dirname, './RequirementsGuidelines.md'), 'utf-8');
+const requirementGuidelines = fs.readFileSync(path.join(__dirname, './RequirementsGuidelines.md'), 'utf-8');
+const userStoryGuidelines = fs.readFileSync(path.join(__dirname, './UserStoryGuidelines.md'), 'utf-8');
 
 /**
  * Extracts all code-fenced content from a given response string.
@@ -33,18 +35,18 @@ const guidelines = fs.readFileSync(path.join(__dirname, './RequirementsGuideline
  * @returns The extracted code-fenced content or an empty string if no content is found.
  */
 export function extractCodeFencedContent(response: string): string {
-   const codeBlocks = response.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/g);
+   const codeBlocks = response.match(/```(?:code|plaintext|userstory)?\s*([\s\S]*?)```/g);
    if (!codeBlocks) {
-      return '';
+       return '';
    }
 
    return codeBlocks
-      .map(block => {
-         const content = block.match(/```(?:code|plaintext|requirement)?\s*([\s\S]*?)```/);
-         return content ? content[1].trim() : '';
-      })
-      .filter(content => content.length > 0)
-      .join('\n\n');
+       .map(block => {
+           const content = block.match(/```(?:code|plaintext|userstory)?\s*([\s\S]*?)```/);
+           return content ? content[1].trim() : '';
+       })
+       .filter(content => content.length > 0)
+       .join('\n\n');
 }
 
 /**
@@ -76,13 +78,20 @@ export async function improveRequirementWithPrompt(
 
 
 /**
- * Evaluates a requirement against the standard guidelines.
+ * Evaluates a requirement against provided guidelines.
  * 
  * @param requirement - The requirement to be evaluated.
  * @param wordCount - The word count to use to generate comments on the requirement.
+ * @param promptId - The ID of the prompt to use for evaluation.
+ * @param guidelines - The guidelines to evaluate the requirement against.
  * @returns A promise resolving to the evaluated requirement.
  */
-export async function improveRequirement(requirement: string, wordCount: number): Promise<IRequirementEvaluation> {
+export async function improveRequirement(
+   requirement: string, 
+   wordCount: number, 
+   promptId: string,
+   guidelines: string
+): Promise<IRequirementEvaluation> {
 
    if (!requirement || requirement.trim().length === 0) {
       throw new InvalidParameterError('InvalidParameter: Requirement cannot be empty');
@@ -90,8 +99,14 @@ export async function improveRequirement(requirement: string, wordCount: number)
    if (!wordCount || wordCount <= 0) {
       throw new InvalidParameterError('InvalidParameter: Word count must be greater than 0');
    }
+   if (!promptId || promptId.trim().length === 0) {
+      throw new InvalidParameterError('InvalidParameter: Prompt ID cannot be empty');
+   }
+   if (!guidelines || guidelines.trim().length === 0) {
+      throw new InvalidParameterError('InvalidParameter: Guidelines cannot be empty');
+   }
 
-   let evaluation = await improveRequirementWithPrompt(requirementsGuidelineCheckerPromptId, {
+   let evaluation = await improveRequirementWithPrompt(promptId, {
       guidelines: guidelines,
       requirement: requirement,
       wordCount: wordCount.toString()
@@ -132,12 +147,35 @@ export async function evaluateRequirement(request: IRequirementEvaluationRequest
       request.requirement.length * 2 + MIN_WORD_COUNT), 
       request.requirement.length * 2 + MAX_WORD_COUNT);
 
-   const improvedRequirement = await improveRequirement(request.requirement, wordCount);
+   const improvedRequirement = await improveRequirement(request.requirement, wordCount, 
+                                                        requirementsGuidelineCheckerPromptId, requirementGuidelines);
 
    let splitRequirement = await improveRequirementSplit(improvedRequirement.proposedNewRequirement);
 
    return {
       evaluation: improvedRequirement.evaluation,
       proposedNewRequirement: splitRequirement.proposedNewRequirement
+   }
+}
+
+/**
+ * Evaluates a user story against the standard guidelines.
+ *    
+ * @param requirement - The user story to be evaluated.
+ * @returns A promise resolving to the evaluated user story.
+ */
+export async function evaluateUserStory(request: IRequirementEvaluationRequest): Promise<IRequirementEvaluation> {
+
+   // The input is usually present in the output twice. We bracket this with min and max absolute incremental words. 
+   let wordCount: number = Math.min(Math.max(request.requirement.length * 5, 
+      request.requirement.length * 2 + MIN_WORD_COUNT), 
+      request.requirement.length * 2 + MAX_WORD_COUNT);
+
+   const improvedRequirement = await improveRequirement(request.requirement, wordCount, 
+                                                        userStoryGuidelineCheckerPromptId, userStoryGuidelines);
+
+   return {
+      evaluation: improvedRequirement.evaluation,
+      proposedNewRequirement: improvedRequirement.proposedNewRequirement
    }
 }
