@@ -99,5 +99,21 @@
             "required": true
          }
       ]
-   }    
+   }    ,
+   {
+      "id": "d7a91f23-8e4c-4d19-b67f-12c9b3a5e8f4",
+      "name": "UserStoryFeasibilityChecker",
+      "description": "Reviews some text to see if it looks like a user story.",
+      "version": "1.0",
+      "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language.",
+      "userPrompt": "Here is a statement that a draft of or part of a user story:\n```statement\n{statement}\n```\n. Review the statement and respond with a simple 'YES' or 'NO' to indicate if it looks like the statement is a draft or part of a  tory. The writer may be inexperienced and looking for help, so even if it is not a good draft, respond 'YES'. If the statement really does not look like a draft or part of a user story, respond with 'NO'.",
+      "userPromptParameters": [
+         {
+            "name": "statement",
+            "description": "The statement to be reviewed.",
+            "type": "kString",
+            "required": true
+         }
+      ]
+   }
 ]

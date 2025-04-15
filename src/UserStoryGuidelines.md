@@ -4,6 +4,7 @@ This document provides a set of guidelines for writing good user stories, source
 https://www.gov.uk/service-manual/agile-delivery/writing-user-stories 
 https://miro.com/agile/how-to-write-good-user-story/ 
 https://medium.com/theproductperson/writing-better-user-stories-through-active-acceptance-criteria-5615a54e2750
+https://www.incose.org/docs/default-source/working-groups/requirements-wg/gtwr/incose_rwg_gtwr_v4_040423_final_drafts.pdf?sfvrsn=5c877fc7_2
 
 R1 A User Story should always include the person using the service (the actor)
 R2 A User Story should always include what the user needs the service for (the narrative)
@@ -65,13 +66,9 @@ Unambiguous : The user story is stated in such a way that it can be interpreted 
 Complete : The user story sufficiently describes the necessary capability, characteristic, constraint, or quality factor to meet the entity need without needing other information to understand the user story. 
 Singular : The user story should state a single capability, characteristic, constraint, or quality factor. 
 Verifiable : The user story is structured and worded such that its realization can be proven (verified) to the customer’s satisfaction at the level the requirements exist. 
-Conforming : The individual requirements should conform to an approved standard template and style for writing requirements, when applicable. 
+Conforming : The individual stories should conform to an approved standard template and style for writing requirements, when applicable. 
 Correct : The user story must be an accurate representation of the entity need from which it was transformed. 
 Feasible : The user story can be realized within entity constraints (e.g., cost, schedule, technical, legal, regulatory) with acceptable risk. 
-
-
-
-
 
 
 Copyright (c) 2025 Jon Verrier
