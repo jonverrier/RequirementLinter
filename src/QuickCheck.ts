@@ -14,8 +14,7 @@ const typedPrompts = prompts as IPrompt[];
 
 /**
  * Checks if a given statement looks like a system requirement.
- * @param statement - The statement to check.
- * @param beFriendly - Whether to be give the user the benefit of the doubt in the event we get an expected response from the LLM (i.e we say yes)
+ * @param request - The request query specification.
  * @returns True if the statement looks like a system requirement, false otherwise.
  */
 export async function quickCheckLooksLikeRequirement (request: IQuickCheckRequest) : Promise<IQuickCheckResponse> {

@@ -2,7 +2,7 @@ Show HN:Requirement Linter, an LLM-powered tool to improve software requirements
 
 I built Requirement Linter, an LLM-powered tool that helps improve software requirements by checking them against established industry guidelines.
 
-Why I built this:
+Why build this:
 As Annie Vella pointed out in her research on collaborative AI-person software lifecycles (https://annievella.com/posts/the-sdlc-strikes-back/), AI isn't just accelerating development - it's reshaping the way we build software altogether. The reality is that we’re not writing all the code by hand anymore. Instead, we’re writing specifications and prompts for AI coding assistants to generate code for us. Requirements need to be clearer. This tool addresses exactly that problem. 
 
 How it works:
