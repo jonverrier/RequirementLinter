@@ -69,7 +69,7 @@ Here is a requirement:
 If the requirement should be split into multiple distinct requirements for clarity, testability, or traceability, please rewrite them as separate requirements. Use code fences to demarcate the set of new requirements. Do not split if the requirement can reasonably be written as a single requirement. If the requirement does not need to be split, return it unchanged within code fences.
 ````
 
-The functional tests are in [test/general.eval.test.ts](test/general.eval.test.ts). The test cases are taken from [here](https://www.incose.org/docs/default-source/working-groups/requirements-wg/shared_gtwr/gtwr_characteristics_section_4_050423.pdf?sfvrsn=9a7548c7_2). Not all of the test are included - this is because:
+The functional tests are in [test/general.eval.test.ts](test/requirements.eval.test.ts). The test cases are taken from [here](https://www.incose.org/docs/default-source/working-groups/requirements-wg/shared_gtwr/gtwr_characteristics_section_4_050423.pdf?sfvrsn=9a7548c7_2). Not all of the test are included - this is because:
 1) it turned into an exercise of writing regular expressions to catch increasigly compex conditions, and the value of the tests seemed to be dropping off vs just publishing the tool in a reasonable first draft state. 
 2) as noted under installation, not all of the current tests always pass. The next focus area is getting the base set of evaluations to pass 100% of the time, which is a prompt engineering journey, and seems more valuable than coding dozens more regular expressions. 
 
