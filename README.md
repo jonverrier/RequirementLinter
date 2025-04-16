@@ -2,12 +2,10 @@
 
 Because no-one wants a fluffy requirement.
 
-Influenced by Annie Vella's work on collaborative AI-person software lifecycles (which you can find [here](https://annievella.com/posts/the-sdlc-strikes-back/) and [here](https://dl.acm.org/doi/10.1145/3715003)). 
+Influenced by Annie Vella's work on collaborative AI-Driven Development (which you can find [here](https://annievella.com/posts/the-sdlc-strikes-back/) and [here](https://dl.acm.org/doi/10.1145/3715003)). 
 
 Why build this:
-AI isn't just accelerating development - it's reshaping the way we build software altogether. The reality is that we’re not writing the code by hand anymore. Instead, we’re writing specifications and prompts for AI coding assistants to generate code for us. Requirements need to be clearer. This tool addresses that problem. 
-
-This is the first tool & we will build more - we need a whole lifecyle where we can interweave people and AI models.  
+AI isn't just accelerating development, it is changing the way we build software. We are not writing all the code by hand anymore. We are increasingly writing specifications and prompts for AI coding assistants to generate code for us. These specifications and prompts need to be clearer to stateholders and LLMs. This tool addresses that problem.  
 
 How it works:
 We prompt an LLM (currently OpenAI GPT4o) to review your user story or formal requirement against a set of guidelines. 
@@ -15,9 +13,9 @@ We prompt an LLM (currently OpenAI GPT4o) to review your user story or formal re
 For a formal requirement, we use the guidelines from the International Council of Systems Engineering '[Guide to Writing Requirements](https://www.incose.org/docs/default-source/working-groups/requirements-wg/gtwr/incose_rwg_gtwr_v4_040423_final_drafts.pdf)' (GtWR). The GtWR is a mature product that is widely used in the industry.  
 
 For a user story, we use a set of reasonable well agreed industry guidelines:
-- https://www.gov.uk/service-manual/agile-delivery/writing-user-stories
-- https://miro.com/agile/how-to-write-good-user-story/
-- https://medium.com/theproductperson/writing-better-user-stories-through-active-acceptance-criteria-5615a54e2750
+- [UK Government - Writing User Stories](https://www.gov.uk/service-manual/agile-delivery/writing-user-stories)
+- [Miro - How to Write Good User Stories](https://miro.com/agile/how-to-write-good-user-story/)
+- [The Product Person - Writing Better User Stories Through Active Acceptance Criteria](https://medium.com/theproductperson/writing-better-user-stories-through-active-acceptance-criteria-5615a54e2750)
 
 and them supplement these with a subset of the GtWR rules. User Stories are by definition less formal, so fewer tight rules apply. 
 
