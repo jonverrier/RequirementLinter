@@ -12,7 +12,7 @@ We prompt an LLM (currently OpenAI GPT4.1) to review your user story or formal r
 
 For a formal requirement, we use the guidelines from the International Council of Systems Engineering '[Guide to Writing Requirements](https://www.incose.org/docs/default-source/working-groups/requirements-wg/gtwr/incose_rwg_gtwr_v4_040423_final_drafts.pdf)' (GtWR). The GtWR is a mature product that is widely used in the industry.  
 
-For a user story, we use a set of reasonable well agreed industry guidelines:
+For a user story, we use a set of common industry guidelines:
 - [UK Government - Writing User Stories](https://www.gov.uk/service-manual/agile-delivery/writing-user-stories)
 - [Miro - How to Write Good User Stories](https://miro.com/agile/how-to-write-good-user-story/)
 - [The Product Person - Writing Better User Stories Through Active Acceptance Criteria](https://medium.com/theproductperson/writing-better-user-stories-through-active-acceptance-criteria-5615a54e2750)
