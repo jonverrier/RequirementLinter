@@ -3,7 +3,7 @@
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 
-import { evaluateRequirement } from '../src/EvaluateRequirement';
+import { evaluateRequirement } from '../src/Evaluate';
 
 const SESSION_ID = '1234567890';
 
@@ -79,11 +79,11 @@ async function getRevisedRequirement(requirement: string, suggested: string[]) :
 
    let wordCount : number = requirement.length * 5;
 
-   const improvedRequirement = await evaluateRequirement({ requirement, sessionId: SESSION_ID });
+   const improvedRequirement = await evaluateRequirement({ specification: requirement, sessionId: SESSION_ID });
 
    //logAIResponseVsSuggested(requirement, improvedRequirement.proposedNewRequirement, suggested);
 
-   return improvedRequirement.proposedNewRequirement || '';
+   return improvedRequirement.proposedNewSpecification || '';
 }
 
 describe('Requirements Evaluation Tests', () => {

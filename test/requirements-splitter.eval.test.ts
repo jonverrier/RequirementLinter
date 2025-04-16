@@ -6,7 +6,7 @@
 
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
-import { improveRequirementSplit } from '../src/EvaluateRequirement';
+import { improveRequirementSplit } from '../src/Evaluate';
 
 describe('Requirements Splitter Tests', () => {
     const TEST_TIMEOUT = 30000;
@@ -17,7 +17,7 @@ describe('Requirements Splitter Tests', () => {
         const response = await improveRequirementSplit(input);
         
         // Should have single "shall/must" statements      
-        const shallCount = (response.proposedNewRequirement.toLowerCase().match(/(shall|must)/g) || []).length;
+        const shallCount = (response.proposedNewSpecification.toLowerCase().match(/(shall|must)/g) || []).length;
         expect(shallCount).toEqual(1);        
     }).timeout(TEST_TIMEOUT);
 
@@ -27,7 +27,7 @@ describe('Requirements Splitter Tests', () => {
         const response = await improveRequirementSplit(input);
         
         // Should have single "shall/must" statements       
-        const shallCount = (response.proposedNewRequirement.toLowerCase().match(/(shall|must)/g) || []).length;
+        const shallCount = (response.proposedNewSpecification.toLowerCase().match(/(shall|must)/g) || []).length;
         expect(shallCount).toEqual(1);
     }).timeout(TEST_TIMEOUT);
 
@@ -37,7 +37,7 @@ describe('Requirements Splitter Tests', () => {
         const response = await improveRequirementSplit(input);      
 
         // Should have multiple "shall/must" statements
-        const shallCount = (response.proposedNewRequirement.toLowerCase().match(/(shall|must)/g) || []).length;
+        const shallCount = (response.proposedNewSpecification.toLowerCase().match(/(shall|must)/g) || []).length;
 
         expect(shallCount).toBeGreaterThan(1);
     }).timeout(TEST_TIMEOUT);

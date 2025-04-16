@@ -26,19 +26,19 @@ describe('quickCheckLooksLikeRequirement Integration Tests', () => {
    it('should identify a clear requirement statement', async () => {
       const input = "The system shall process user requests within 200ms.";
       const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true, sessionId: SESSION_ID });
-      expect(result.isRequirement).toBe(true);
+      expect(result.isSpecification).toBe(true);
    }).timeout(TEST_TIMEOUT);
 
    it('should identify another valid requirement', async () => {
       const input = "The application shall support a minimum of 1000 concurrent users.";
       const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true, sessionId: SESSION_ID });
-      expect(result.isRequirement).toBe(true);
+      expect(result.isSpecification).toBe(true);
    }).timeout(TEST_TIMEOUT);
 
    it('should reject a non-requirement statement', async () => {
       const input = "I really like cheese.";
       const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true, sessionId: SESSION_ID });
-      expect(result.isRequirement).toBe(false);
+      expect(result.isSpecification).toBe(false);
    }).timeout(TEST_TIMEOUT);
 
    it('should handle ambiguous statement with friendly mode on', async () => {
@@ -49,7 +49,7 @@ describe('quickCheckLooksLikeRequirement Integration Tests', () => {
       const chatDriver = chatDriverFactory.create(EModel.kMini, EModelProvider.kOpenAI);
       const ChatDriverClass = Object.getPrototypeOf(chatDriver).constructor;
       const mock = sinon.stub(ChatDriverClass.prototype, 'getModelResponse').resolves(mockResponse);
-      let result = { isRequirement: false };
+      let result = { isSpecification: false };
 
       try {
          result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true, sessionId: SESSION_ID });
@@ -57,7 +57,7 @@ describe('quickCheckLooksLikeRequirement Integration Tests', () => {
          mock.restore();
       }
       
-      expect(result.isRequirement).toBe(true);
+      expect(result.isSpecification).toBe(true);
    }).timeout(TEST_TIMEOUT);
 
    it('should handle ambiguous statement with friendly mode off', async () => {
@@ -67,7 +67,7 @@ describe('quickCheckLooksLikeRequirement Integration Tests', () => {
       const chatDriver = chatDriverFactory.create(EModel.kMini, EModelProvider.kOpenAI);
       const ChatDriverClass = Object.getPrototypeOf(chatDriver).constructor;
       const mock = sinon.stub(ChatDriverClass.prototype, 'getModelResponse').resolves(mockResponse);
-      let result = { isRequirement: true };
+      let result = { isSpecification: true };
 
       try {
          result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: false, sessionId: SESSION_ID });
@@ -75,12 +75,12 @@ describe('quickCheckLooksLikeRequirement Integration Tests', () => {
          mock.restore();
       }
             
-      expect(result.isRequirement).toBe(false);
+      expect(result.isSpecification).toBe(false);
    }).timeout(TEST_TIMEOUT);
 
    it('should identify technical requirement', async () => {
       const input = "The database shall be available for 99.5% of business hours.";
       const result = await quickCheckLooksLikeRequirement({ statement: input, beFriendly: true, sessionId: SESSION_ID });
-      expect(result.isRequirement).toBe(true);
+      expect(result.isSpecification).toBe(true);
    }).timeout(TEST_TIMEOUT);
 });

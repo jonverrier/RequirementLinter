@@ -1,19 +1,21 @@
 /**
- * @module EvaluateRequirement
- * 
- * Core functions for evaluating and improving requirements using AI models.
+ * @module Evaluate
+ * Core functions for evaluating and improving specifications using AI models.
  * Provides functionality for:
- * - Splitting complex requirements into atomic statements
- * - Extracting code-fenced content from model responses
- * - Evaluating requirements against standard guidelines
- * - Improving requirement clarity and structure
+ * - Analyzing and evaluating specifications against best practices
+ * - Breaking down complex specifications into atomic statements
+ * - Extracting structured content from model responses
+ * - Suggesting improvements for clarity, completeness and testability
+ * - Validating specifications against standard guidelines
+ * 
+ *  Where we say 'specification', we mean either a Requirement or a User Story.  
  */
 // Copyright (c) 2025 Jon Verrier
 
 import path from "path";
 import fs from "fs";
 
-import { IRequirementEvaluation, IRequirementEvaluationRequest } from "../export/RequirementsLinterApiTypes";
+import { ISpecificationEvaluation, ISpecificationEvaluationRequest } from "../export/RequirementsLinterApiTypes";
 
 import { EModel, EModelProvider, ChatDriverFactory, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "prompt-repository";
 import { requirementsGuidelineCheckerPromptId, requirementsSplitterPromptId, userStoryGuidelineCheckerPromptId } from './PromptIds';
@@ -35,14 +37,14 @@ const userStoryGuidelines = fs.readFileSync(path.join(__dirname, './UserStoryGui
  * @returns The extracted code-fenced content or an empty string if no content is found.
  */
 export function extractCodeFencedContent(response: string): string {
-   const codeBlocks = response.match(/```(?:code|plaintext|userstory)?\s*([\s\S]*?)```/g);
+   const codeBlocks = response.match(/```(?:code|plaintext|requirement|userstory)?\s*([\s\S]*?)```/g);
    if (!codeBlocks) {
        return '';
    }
 
    return codeBlocks
        .map(block => {
-           const content = block.match(/```(?:code|plaintext|userstory)?\s*([\s\S]*?)```/);
+           const content = block.match(/```(?:code|plaintext|requirement|userstory)?\s*([\s\S]*?)```/);
            return content ? content[1].trim() : '';
        })
        .filter(content => content.length > 0)
@@ -56,10 +58,10 @@ export function extractCodeFencedContent(response: string): string {
  * @param params - Key-value pairs of parameters to be expanded in the prompt
  * @returns A promise resolving to the improved requirement extracted from code-fenced content
  */
-export async function improveRequirementWithPrompt(
+export async function improveSpecificationWithPrompt(
    promptId: string,
    params: { [key: string]: string }
-): Promise<IRequirementEvaluation> {
+): Promise<ISpecificationEvaluation> {
    // Load & expend the prompt
    const promptRepo = new PromptInMemoryRepository(typedPrompts);
    const prompt = promptRepo.getPrompt(promptId);
@@ -72,7 +74,7 @@ export async function improveRequirementWithPrompt(
 
    return {
       evaluation: response,
-      proposedNewRequirement: extractCodeFencedContent(response)
+      proposedNewSpecification: extractCodeFencedContent(response)
    };
 }
 
@@ -86,12 +88,12 @@ export async function improveRequirementWithPrompt(
  * @param guidelines - The guidelines to evaluate the requirement against.
  * @returns A promise resolving to the evaluated requirement.
  */
-export async function improveRequirement(
+export async function improveSpecification(
    requirement: string, 
    wordCount: number, 
    promptId: string,
    guidelines: string
-): Promise<IRequirementEvaluation> {
+): Promise<ISpecificationEvaluation> {
 
    if (!requirement || requirement.trim().length === 0) {
       throw new InvalidParameterError('InvalidParameter: Requirement cannot be empty');
@@ -106,7 +108,7 @@ export async function improveRequirement(
       throw new InvalidParameterError('InvalidParameter: Guidelines cannot be empty');
    }
 
-   let evaluation = await improveRequirementWithPrompt(promptId, {
+   let evaluation = await improveSpecificationWithPrompt(promptId, {
       guidelines: guidelines,
       requirement: requirement,
       wordCount: wordCount.toString()
@@ -117,14 +119,14 @@ export async function improveRequirement(
 
 
 /**
- * Updates a requirement if necessaryby splitting it into atomic statements.
+ * Updates a requirement if necessary by splitting it into atomic statements.
  * 
  * @param requirement - The requirement to be evaluated.
  * @returns A promise resolving to the evaluated requirement.
  */
-export async function improveRequirementSplit(requirement: string): Promise<IRequirementEvaluation> {
-   let evaluation = await improveRequirementWithPrompt(requirementsSplitterPromptId, {
-      requirement: requirement
+export async function improveRequirementSplit(specification: string): Promise<ISpecificationEvaluation> {
+   let evaluation = await improveSpecificationWithPrompt(requirementsSplitterPromptId, {
+      requirement: specification
    });
 
    return evaluation;
@@ -140,21 +142,21 @@ function countWords(str: string): number {
  * @param requirement - The requirement to be evaluated.
  * @returns A promise resolving to the evaluated requirement.
  */
-export async function evaluateRequirement(request: IRequirementEvaluationRequest): Promise<IRequirementEvaluation> {
+export async function evaluateRequirement(request: ISpecificationEvaluationRequest): Promise<ISpecificationEvaluation> {
 
    // The input is usually present in the output twice. We bracket this with min and max absolute incremental words. 
-   let wordCount: number = Math.min(Math.max(request.requirement.length * 5, 
-      request.requirement.length * 2 + MIN_WORD_COUNT), 
-      request.requirement.length * 2 + MAX_WORD_COUNT);
+   let wordCount: number = Math.min(Math.max(request.specification.length * 5, 
+      request.specification.length * 2 + MIN_WORD_COUNT), 
+      request.specification.length * 2 + MAX_WORD_COUNT);
 
-   const improvedRequirement = await improveRequirement(request.requirement, wordCount, 
+   const improvedSpecification = await improveSpecification(request.specification, wordCount, 
                                                         requirementsGuidelineCheckerPromptId, requirementGuidelines);
 
-   let splitRequirement = await improveRequirementSplit(improvedRequirement.proposedNewRequirement);
+   let splitSpecification = await improveRequirementSplit(improvedSpecification.proposedNewSpecification);
 
    return {
-      evaluation: improvedRequirement.evaluation,
-      proposedNewRequirement: splitRequirement.proposedNewRequirement
+      evaluation: improvedSpecification.evaluation,
+      proposedNewSpecification: splitSpecification.proposedNewSpecification
    }
 }
 
@@ -164,18 +166,18 @@ export async function evaluateRequirement(request: IRequirementEvaluationRequest
  * @param requirement - The user story to be evaluated.
  * @returns A promise resolving to the evaluated user story.
  */
-export async function evaluateUserStory(request: IRequirementEvaluationRequest): Promise<IRequirementEvaluation> {
+export async function evaluateUserStory(request: ISpecificationEvaluationRequest): Promise<ISpecificationEvaluation> {
 
    // The input is usually present in the output twice. We bracket this with min and max absolute incremental words. 
-   let wordCount: number = Math.min(Math.max(request.requirement.length * 5, 
-      request.requirement.length * 2 + MIN_WORD_COUNT), 
-      request.requirement.length * 2 + MAX_WORD_COUNT);
+   let wordCount: number = Math.min(Math.max(request.specification.length * 5, 
+      request.specification.length * 2 + MIN_WORD_COUNT), 
+      request.specification.length * 2 + MAX_WORD_COUNT);
 
-   const improvedRequirement = await improveRequirement(request.requirement, wordCount, 
+   const improvedSpecification = await improveSpecification(request.specification, wordCount, 
                                                         userStoryGuidelineCheckerPromptId, userStoryGuidelines);
 
    return {
-      evaluation: improvedRequirement.evaluation,
-      proposedNewRequirement: improvedRequirement.proposedNewRequirement
+      evaluation: improvedSpecification.evaluation,
+      proposedNewSpecification: improvedSpecification.proposedNewSpecification
    }
 }

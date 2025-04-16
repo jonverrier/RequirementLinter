@@ -63,15 +63,15 @@ async function quickCheckLooksLikeRequirementWithPrompt (request: IQuickCheckReq
 
     switch (trimmed) {
         case 'yes':
-            return { isRequirement: true };
+            return { isSpecification: true };
         case 'no':
-            return { isRequirement: false };
+            return { isSpecification: false };
         default:
          if (request.beFriendly) {
-            return { isRequirement: true };
+            return { isSpecification: true };
          }
          else {
-            return { isRequirement: false };
+            return { isSpecification: false };
          }
     }
 }

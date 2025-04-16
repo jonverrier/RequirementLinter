@@ -6,14 +6,14 @@
 // Copyright (c) 2025 Jon Verrier
 
 export {
-    IRequirementEvaluation,
-    IRequirementEvaluationRequest,
+    ISpecificationEvaluation,
+    ISpecificationEvaluationRequest,
     IQuickCheckResponse,
     IQuickCheckRequest
 } from "../export/RequirementsLinterApiTypes";
 
-export { evaluateRequirement} from "./EvaluateRequirement";
-export { quickCheckLooksLikeRequirement } from "./QuickCheck";
+export { evaluateRequirement, evaluateUserStory } from "./Evaluate";
+export { quickCheckLooksLikeRequirement, quickCheckLooksLikeUserStory } from "./QuickCheck";
 
 
 

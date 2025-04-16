@@ -1,4 +1,4 @@
-/**
+   /**
  * @module evaluaterequirement.eval.test
  * Integration tests for the reviewAndImproveRequirement function.
  */
@@ -6,7 +6,7 @@
 
 import { describe, it } from 'mocha';
 import { expect } from 'expect';
-import { extractCodeFencedContent } from '../src/EvaluateRequirement';
+import { extractCodeFencedContent } from '../src/Evaluate';
 
 describe('extractCodeFencedContent Unit Tests', () => {
     it('should extract content from a single code block', () => {
@@ -74,5 +74,16 @@ describe('extractCodeFencedContent Unit Tests', () => {
         // Assert
         expect(result).toBe('Test requirement');
     });
+
+    it('should handle code blocks with user story language specifier', () => {
+      // Arrange
+      const input = '```userstory\nTest user story\n```';
+      
+      // Act
+      const result = extractCodeFencedContent(input);
+      
+      // Assert
+      expect(result).toBe('Test user story');
+  });    
 });
 

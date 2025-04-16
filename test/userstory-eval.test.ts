@@ -1,7 +1,7 @@
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
-import { evaluateUserStory } from '../src/EvaluateRequirement';
-import { IRequirementEvaluationRequest } from '../export/RequirementsLinterApiTypes';
+import { evaluateUserStory } from '../src/Evaluate';
+import { ISpecificationEvaluationRequest } from '../export/RequirementsLinterApiTypes';
 
 const SESSION_ID = 'test-session-123';
 
@@ -9,8 +9,8 @@ describe('User Story Evaluation Tests', () => {
 
    const TEST_TIMEOUT = 30000; // 30 seconds as we have a large prompt with all the requirements
 
-    const createRequest = (requirement: string): IRequirementEvaluationRequest => ({
-        requirement,
+    const createRequest = (requirement: string): ISpecificationEvaluationRequest => ({
+        specification: requirement,
         sessionId: SESSION_ID
     });
 

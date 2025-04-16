@@ -26,19 +26,19 @@ describe('quickCheckLooksLikeUserStory Integration Tests', () => {
    it('should identify a clear user story', async () => {
       const input = "As a customer, I want to be able to view my order history so that I can track my purchases.";
       const result = await quickCheckLooksLikeUserStory({ statement: input, beFriendly: true, sessionId: SESSION_ID });
-      expect(result.isRequirement).toBe(true);
+      expect(result.isSpecification).toBe(true);
    }).timeout(TEST_TIMEOUT);
 
    it('should identify another valid user story', async () => {
       const input = "As an administrator, I want to be able to manage user permissions so that I can control access to system features.";
       const result = await quickCheckLooksLikeUserStory({ statement: input, beFriendly: true, sessionId: SESSION_ID });
-      expect(result.isRequirement).toBe(true);
+      expect(result.isSpecification).toBe(true);
    }).timeout(TEST_TIMEOUT);
 
    it('should reject a non-user story statement', async () => {
       const input = "Crap";
       const result = await quickCheckLooksLikeUserStory({ statement: input, beFriendly: true, sessionId: SESSION_ID });
-      expect(result.isRequirement).toBe(false);
+      expect(result.isSpecification).toBe(false);
    }).timeout(TEST_TIMEOUT);
 
    it('should handle ambiguous statement with friendly mode on', async () => {
@@ -49,7 +49,7 @@ describe('quickCheckLooksLikeUserStory Integration Tests', () => {
       const chatDriver = chatDriverFactory.create(EModel.kMini, EModelProvider.kOpenAI);
       const ChatDriverClass = Object.getPrototypeOf(chatDriver).constructor;
       const mock = sinon.stub(ChatDriverClass.prototype, 'getModelResponse').resolves(mockResponse);
-      let result = { isRequirement: false };
+      let result = { isSpecification: false };
 
       try {
          result = await quickCheckLooksLikeUserStory({ statement: input, beFriendly: true, sessionId: SESSION_ID });
@@ -57,7 +57,7 @@ describe('quickCheckLooksLikeUserStory Integration Tests', () => {
          mock.restore();
       }
       
-      expect(result.isRequirement).toBe(true);
+      expect(result.isSpecification).toBe(true);
    }).timeout(TEST_TIMEOUT);
 
    it('should handle ambiguous statement with friendly mode off', async () => {
@@ -67,7 +67,7 @@ describe('quickCheckLooksLikeUserStory Integration Tests', () => {
       const chatDriver = chatDriverFactory.create(EModel.kMini, EModelProvider.kOpenAI);
       const ChatDriverClass = Object.getPrototypeOf(chatDriver).constructor;
       const mock = sinon.stub(ChatDriverClass.prototype, 'getModelResponse').resolves(mockResponse);
-      let result = { isRequirement: true };
+      let result = { isSpecification: true };
 
       try {
          result = await quickCheckLooksLikeUserStory({ statement: input, beFriendly: false, sessionId: SESSION_ID });
@@ -75,12 +75,12 @@ describe('quickCheckLooksLikeUserStory Integration Tests', () => {
          mock.restore();
       }
             
-      expect(result.isRequirement).toBe(false);
+      expect(result.isSpecification).toBe(false);
    }).timeout(TEST_TIMEOUT);
 
    it('should identify a user story with acceptance criteria', async () => {
       const input = "As a user, I want to be able to reset my password so that I can regain access to my account when I forget my password. Acceptance Criteria: The user can reset their password by clicking the reset password link in the login page.";
       const result = await quickCheckLooksLikeUserStory({ statement: input, beFriendly: true, sessionId: SESSION_ID });
-      expect(result.isRequirement).toBe(true);
+      expect(result.isSpecification).toBe(true);
    }).timeout(TEST_TIMEOUT);
 }); 

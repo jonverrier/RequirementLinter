@@ -6,7 +6,7 @@
 
 import { describe, it } from 'mocha';
 import { expect } from 'expect';
-import { evaluateRequirement } from '../src/EvaluateRequirement';
+import { evaluateRequirement } from '../src/Evaluate';
 
 const SESSION_ID = '1234567890';
 
@@ -19,11 +19,11 @@ describe('evaluateRequirement Integration Tests', () => {
         const inputRequirement = 'The system must handle user authentication';
 
         // Act
-        const result = await evaluateRequirement({ requirement: inputRequirement, sessionId: SESSION_ID });
+        const result = await evaluateRequirement({ specification: inputRequirement, sessionId: SESSION_ID });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);
-        expect(result.proposedNewRequirement.length).toBeGreaterThan(0);
+        expect(result.proposedNewSpecification.length).toBeGreaterThan(0);
     }).timeout(TEST_TIMEOUT);
 
     it('should handle a complex requirement', async () => {
@@ -31,13 +31,13 @@ describe('evaluateRequirement Integration Tests', () => {
         const inputRequirement = 'The system must handle user authentication, perform data validation, and ensure proper error handling while maintaining high performance and scalability';
 
         // Act
-        const result = await evaluateRequirement({ requirement: inputRequirement, sessionId: SESSION_ID });
+        const result = await evaluateRequirement({ specification: inputRequirement, sessionId: SESSION_ID });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);
-        expect(result.proposedNewRequirement.length).toBeGreaterThan(0);
+        expect(result.proposedNewSpecification.length).toBeGreaterThan(0);
         // Complex requirements should be split into multiple lines
-        expect(result.proposedNewRequirement.split('\n').length).toBeGreaterThan(1);
+        expect(result.proposedNewSpecification.split('\n').length).toBeGreaterThan(1);
     }).timeout(TEST_TIMEOUT);
 
     it('should handle empty input', async () => {
@@ -45,7 +45,7 @@ describe('evaluateRequirement Integration Tests', () => {
         const inputRequirement = '';
 
         // Act
-        await expect(evaluateRequirement({ requirement: inputRequirement, sessionId: SESSION_ID }))
+        await expect(evaluateRequirement({ specification: inputRequirement, sessionId: SESSION_ID }))
             .rejects
             .toThrow();
     }).timeout(TEST_TIMEOUT);
@@ -55,13 +55,13 @@ describe('evaluateRequirement Integration Tests', () => {
         const inputRequirement = 'Must be fast';
 
         // Act
-        const result = await evaluateRequirement({ requirement: inputRequirement, sessionId: SESSION_ID });
+        const result = await evaluateRequirement({ specification: inputRequirement, sessionId: SESSION_ID });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);
-        expect(result.proposedNewRequirement.length).toBeGreaterThan(0);
+        expect(result.proposedNewSpecification.length).toBeGreaterThan(0);
         // Improved version should be more detailed
-        expect(result.proposedNewRequirement.length).toBeGreaterThan(inputRequirement.length);
+        expect(result.proposedNewSpecification.length).toBeGreaterThan(inputRequirement.length);
     }).timeout(TEST_TIMEOUT);
 
     it('should handle requirements with special characters', async () => {
@@ -69,10 +69,10 @@ describe('evaluateRequirement Integration Tests', () => {
         const inputRequirement = 'System must handle UTF-8 characters like: é, ñ, 漢字';
 
         // Act
-        const result = await evaluateRequirement({ requirement: inputRequirement, sessionId: SESSION_ID });
+        const result = await evaluateRequirement({ specification: inputRequirement, sessionId: SESSION_ID });
 
         // Assert
         expect(result.evaluation.length).toBeGreaterThan(0);
-        expect(result.proposedNewRequirement.length).toBeGreaterThan(0);
+        expect(result.proposedNewSpecification.length).toBeGreaterThan(0);
     }).timeout(TEST_TIMEOUT);
 });
