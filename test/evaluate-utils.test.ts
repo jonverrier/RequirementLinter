@@ -74,5 +74,16 @@ describe('extractCodeFencedContent Unit Tests', () => {
         // Assert
         expect(result).toBe('Test requirement');
     });
+
+    it('should handle code blocks with user story language specifier', () => {
+      // Arrange
+      const input = '```userstory\nTest user story\n```';
+      
+      // Act
+      const result = extractCodeFencedContent(input);
+      
+      // Assert
+      expect(result).toBe('Test user story');
+  });    
 });
 

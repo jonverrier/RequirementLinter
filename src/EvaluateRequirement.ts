@@ -35,14 +35,14 @@ const userStoryGuidelines = fs.readFileSync(path.join(__dirname, './UserStoryGui
  * @returns The extracted code-fenced content or an empty string if no content is found.
  */
 export function extractCodeFencedContent(response: string): string {
-   const codeBlocks = response.match(/```(?:code|plaintext|userstory)?\s*([\s\S]*?)```/g);
+   const codeBlocks = response.match(/```(?:code|plaintext|requirement|userstory)?\s*([\s\S]*?)```/g);
    if (!codeBlocks) {
        return '';
    }
 
    return codeBlocks
        .map(block => {
-           const content = block.match(/```(?:code|plaintext|userstory)?\s*([\s\S]*?)```/);
+           const content = block.match(/```(?:code|plaintext|requirement|userstory)?\s*([\s\S]*?)```/);
            return content ? content[1].trim() : '';
        })
        .filter(content => content.length > 0)
