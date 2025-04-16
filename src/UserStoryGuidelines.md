@@ -46,15 +46,14 @@ R8.16 Purpose Phrases: Avoid phrases that indicate the “purpose of“, “inte
 R8.17 Absolutes: Avoid using unachievable absolutes such as 100% reliability, 100% availability, all, every, always, never, etc
 R8.18 Universal Qualification : Use “each” instead of “all”, “any”, or “both” when universal quantification is intended.
 R8.19 Temporal Dependencies : Define temporal dependencies explicitly instead of using indefinite temporal keywords such as “eventually”, “until”, “before”, “after”, “as”, “once”, “earliest”, “latest”, “instantaneous”, “simultaneous”, and “at last”. 
-R8.20 Definite Articles : Use the definite article “the” rather than the indefinite articles “a” or “an”. |
-R8.21 Logical Expressions : Use a defined convention to express logical expressions such as “[X AND Y]”, “[X OR Y]”, “[X XOR Y]”, “NOT [X OR Y]”. 
-R8.22 Parentheses : Avoid parentheses and brackets containing subordinate text. 
-R8.23 Enumeration : Enumerate sets explicitly instead of using a group noun to name the set. 
-R8.24 Supporting Diagram or Model : When a need is related to complex behavior, refer to a supporting diagram or model. 
-R8.25 Classification  : Classify needs and requirements according to the aspects of the problem or system it addresses. 
-R8.26 Unique Expression : Express each need once and only once. 
-R8.27 Solution Free : Avoid stating implementation in a need statement statement unless there is rationale for constraining the design. 
-R8.28 Consistent Terms and Units : Use each term and unit of measure consistently throughout story sets as well as associated models and other SE artifacts developed across the lifecycle.
+R8.20 Logical Expressions : Use a defined convention to express logical expressions such as “[X AND Y]”, “[X OR Y]”, “[X XOR Y]”, “NOT [X OR Y]”. 
+R8.21 Parentheses : Avoid parentheses and brackets containing subordinate text. 
+R8.22 Enumeration : Enumerate sets explicitly instead of using a group noun to name the set. 
+R8.23 Supporting Diagram or Model : When a need is related to complex behavior, refer to a supporting diagram or model. 
+R8.24 Classification  : Classify needs and requirements according to the aspects of the problem or system it addresses. 
+R8.25 Unique Expression : Express each need once and only once. 
+R8.26 Solution Free : Avoid stating implementation in a need statement statement unless there is rationale for constraining the design. 
+R8.27 Consistent Terms and Units : Use each term and unit of measure consistently throughout story sets as well as associated models and other SE artifacts developed across the lifecycle.
 R8.28 Acronyms : If acronyms are used, they must be consistent throughout need sets as well as associated models and other SE artifacts developed across the lifecycle.
 R8.29 Abbreviations : Avoid the use of abbreviations in needs statements as well as associated models and other engineering lifecycle artifacts.
 R8.30 Decimal Format : Use a consistent format and number of significant digits for the specification of decimal numbers.
