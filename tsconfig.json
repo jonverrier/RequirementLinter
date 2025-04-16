@@ -29,5 +29,5 @@
       "src/functions/src/**/*.ts",
       "src/**/*.md",
       "export/**/*.ts"
-   ]
+, "test/userstory-eval.test.ts"   ]
 }

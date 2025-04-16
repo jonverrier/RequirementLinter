@@ -17,7 +17,7 @@
       "prestart": "npm run clean && npm run build",
       "start": "func start",
       "test": "node --loader ts-node/esm --experimental-specifier-resolution=node node_modules/mocha/bin/mocha.js test/**/*.test.ts",
-      "test-mini": "mocha --require ts-node/register --extensions ts,js test/**/*.test.ts -g \"Feasibility*\" --exit"
+      "test-mini": "mocha --require ts-node/register --extensions ts,js test/**/*.test.ts -g \"User Story Evaluation Tests*\" --exit"
    },
    "devDependencies": {
       "@types/chai": "^5.2.1",
