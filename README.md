@@ -8,7 +8,7 @@ Why build this:
 AI isn't just accelerating development, it is changing the way we build software. We are not writing all the code by hand anymore. We are increasingly writing specifications and prompts for AI coding assistants to generate code for us. These specifications and prompts need to be clearer to stateholders and LLMs. This tool addresses that problem.  
 
 How it works:
-We prompt an LLM (currently OpenAI GPT4o) to review your user story or formal requirement against a set of guidelines. 
+We prompt an LLM (currently OpenAI GPT4.1) to review your user story or formal requirement against a set of guidelines. 
 
 For a formal requirement, we use the guidelines from the International Council of Systems Engineering '[Guide to Writing Requirements](https://www.incose.org/docs/default-source/working-groups/requirements-wg/gtwr/incose_rwg_gtwr_v4_040423_final_drafts.pdf)' (GtWR). The GtWR is a mature product that is widely used in the industry.  
 
