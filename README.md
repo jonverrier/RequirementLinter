@@ -5,22 +5,74 @@ Because no-one wants a fluffy requirement.
 Influenced by Annie Vella's work on collaborative AI-person software lifecycles (which you can find [here](https://annievella.com/posts/the-sdlc-strikes-back/) and [here](https://dl.acm.org/doi/10.1145/3715003)). 
 
 Why build this:
-AI isn't just accelerating development - it's reshaping the way we build software altogether. The reality is that we’re not writing the code by hand anymore. Instead, we’re writing specifications and prompts for AI coding assistants to generate code for us. Requirements need to be clearer. This tool addresses exactly that problem. 
+AI isn't just accelerating development - it's reshaping the way we build software altogether. The reality is that we’re not writing the code by hand anymore. Instead, we’re writing specifications and prompts for AI coding assistants to generate code for us. Requirements need to be clearer. This tool addresses that problem. 
 
 This is the first tool & we will build more - we need a whole lifecyle where we can interweave people and AI models.  
 
 How it works:
-We prompt an LLM (currently OpenAI GPT4o) to review your requirement against the guidelines from the International Council of Systems Engineering '[Guide to Writing Requirements](https://www.incose.org/docs/default-source/working-groups/requirements-wg/gtwr/incose_rwg_gtwr_v4_040423_final_drafts.pdf)' (GtWR). The GtWR is a mature product that is widely used in the industry.  
+We prompt an LLM (currently OpenAI GPT4o) to review your user story or formal requirement against a set of guidelines. 
+
+For a formal requirement, we use the guidelines from the International Council of Systems Engineering '[Guide to Writing Requirements](https://www.incose.org/docs/default-source/working-groups/requirements-wg/gtwr/incose_rwg_gtwr_v4_040423_final_drafts.pdf)' (GtWR). The GtWR is a mature product that is widely used in the industry.  
+
+For a user story, we use a set of reasonable well agreed industry guidelines:
+- https://www.gov.uk/service-manual/agile-delivery/writing-user-stories
+- https://miro.com/agile/how-to-write-good-user-story/
+- https://medium.com/theproductperson/writing-better-user-stories-through-active-acceptance-criteria-5615a54e2750
+
+and them supplement these with a subset of the GtWR rules. User Stories are by definition less formal, so fewer tight rules apply. 
 
 You can find an online version of the Requirement Linter [here](https://nice-wave-0746ea503.6.azurestaticapps.net/index). 
 
 ## Features
 
-- Validates requirements against established guidelines
-- Improves requirement clarity and measurability
+- Validates user stories or requirements against established guidelines
+- Improves specification clarity and measurability
 - Splits compound requirements into atomic statements when necessary
 
-## An Example
+## Examples
+
+For a User Story: 
+
+Input:
+```plaintext
+As a developer I want to check user stories against my organisation's standards in my development environment
+```
+
+Output:
+```plaintext
+Basic Structure (R1-R4)
+
+R1: Includes the actor ("developer")
+R2: Includes what the user needs ("check user stories against my organisation's standards")
+R3: Missing the goal/benefit (no "so that..." clause)
+R4: Missing acceptance criteria completely
+
+INVEST Framework (R6)
+
+R6.1 Independent: Story stands alone
+R6.2 Negotiable: Not overly specific about implementation
+R6.3 Valuable: Checking against standards provides value
+R6.4 Estimable: Lacks specifics to estimate effort
+R6.5 Small: Scope seems appropriately sized
+R6.6 Testable: No acceptance criteria to verify against
+
+General Rules Violations
+
+R8.11: Contains vague terms ("organisation's standards" is not specific)
+R8.20: Uses indefinite article ("a developer") instead of definite article
+"Check": This verb is somewhat vague; a more specific action would improve clarity
+The story lacks completeness (one of the characteristics of good specifications)
+
+Improved Version:
+As a developer, I need to validate user stories against the organization's documented quality standards within my integrated development environment so that all project requirements meet quality thresholds before sprint planning.
+Acceptance Criteria:
+
+The validation tool identifies violations of each quality standard in the user story text.
+The validation tool provides recommendations for correcting each identified violation.
+The validation results appear in the IDE within 10 seconds of initiating the check.
+```
+
+For a formal Requirement:
 
 Input:
 ```plaintext
@@ -67,11 +119,11 @@ Here is a requirement:
 {requirement}
 ```
 If the requirement should be split into multiple distinct requirements for clarity, testability, or traceability, please rewrite them as separate requirements. Use code fences to demarcate the set of new requirements. Do not split if the requirement can reasonably be written as a single requirement. If the requirement does not need to be split, return it unchanged within code fences.
-````
+```` 
 
-The functional tests are in [test/general.eval.test.ts](test/requirements.eval.test.ts). The test cases are taken from [here](https://www.incose.org/docs/default-source/working-groups/requirements-wg/shared_gtwr/gtwr_characteristics_section_4_050423.pdf?sfvrsn=9a7548c7_2). Not all of the test are included - this is because:
-1) it turned into an exercise of writing regular expressions to catch increasigly compex conditions, and the value of the tests seemed to be dropping off vs just publishing the tool in a reasonable first draft state. 
-2) as noted under installation, not all of the current tests always pass. The next focus area is getting the base set of evaluations to pass 100% of the time, which is a prompt engineering journey, and seems more valuable than coding dozens more regular expressions. 
+The functional tests are in [userstory-eval.test.ts](test/userstory-eval.test.ts) and [test/requirements.eval.test.ts](test/requirements.eval.test.ts). The test cases are taken from [here](https://www.incose.org/docs/default-source/working-groups/requirements-wg/shared_gtwr/gtwr_characteristics_section_4_050423.pdf?sfvrsn=9a7548c7_2). Not all of the test are included - this is because:
+- it turned into an exercise of writing regular expressions to catch increasigly compex conditions, and the value of the tests seemed to be dropping off vs just publishing the tool in a reasonable first draft state. 
+- as noted under installation, not all of the current tests always pass. The next focus area is getting the base set of evaluations to pass 100% of the time, which is a prompt engineering journey, and seems more valuable than coding dozens more regular expressions. 
 
 
 ## Development
