@@ -30,10 +30,10 @@
       "description": "Reviews a requirement for conformance to good practice.",
       "version": "1.0",
       "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language.",
-      "userPrompt": "Here is a requirement:\n```requirement\n{requirement}\n```\n Review the requirement in the light of the following guidelines:\n```guidelines\n{guidelines}\n```\n Please generate a succinct {wordCount} word review of the requirement by applying the guidelines. Focus on the most important issues first. For each issue found, cite the specific guideline rule number that was violated. Provide a re-phrased requirement (or multiple requirements if necessary) to comply with the guidelines, using code fences to demarcate the suggested new requirement(s). Consider the specific guidelines you have cited. Check your spelling and grammar.",
+      "userPrompt": "Given the following guidelines:\n```guidelines\n{guidelines}\n```\n review this requirement:\n```requirement\n{specification}\n```\n Review the requirement in the light of the guidelines. Please generate a succinct {wordCount} word review of the requirement by applying the guidelines. Focus on the most important issues first. For each issue found, cite the specific guideline rule number that was violated. Provide a re-phrased requirement (or multiple requirements if necessary) to comply with the guidelines, using code fences to demarcate the suggested new requirement(s). Consider the specific guidelines you have cited. Check your spelling and grammar.",
       "userPromptParameters": [
          {
-            "name": "requirement",
+            "name": "specification",
             "description": "The requirement to be reviewed.",
             "type": "kString",
             "required": true
@@ -58,10 +58,10 @@
       "description": "Reviews a user story for conformance to good practice.",
       "version": "1.0",
       "systemPrompt": "You are a senior business analyst. You review the work of more junior staff members and privide clear feedback in simple language.",
-      "userPrompt": "Here is a user story:\n```userStory\n{requirement}\n```\n Review the user story in the light of the following guidelines:\n```guidelines\n{guidelines}\n```\n Please generate a succinct {wordCount} word review of the user story by applying the guidelines. Focus on the most important issues first. For each issue found, cite the specific guideline rule number that was violated. Provide a re-phrased user story (or multiple user stories if necessary) to comply with the guidelines, using code fences to demarcate the suggested new user story(s). Consider the specific guidelines you have cited. Check your spelling and grammar.",
+      "userPrompt": "Given the following guidelines:\n```guidelines\n{guidelines}\n```\n review this user story:\n```userStory\n{specification}\n```\n Review the user story in the light of the guidelines. Please generate a succinct {wordCount} word review of the user story by applying the guidelines. Focus on the most important issues first. For each issue found, cite the specific guideline rule number that was violated. Provide a re-phrased user story (or multiple user stories if necessary) to comply with the guidelines, using code fences to demarcate the suggested new user story(s). Consider the specific guidelines you have cited. Check your spelling and grammar.",
       "userPromptParameters": [
          {
-            "name": "requirement",
+            "name": "specification",
             "description": "The user story to be reviewed.",
             "type": "kString",
             "required": true

@@ -37,14 +37,14 @@ const userStoryGuidelines = fs.readFileSync(path.join(__dirname, './UserStoryGui
  * @returns The extracted code-fenced content or an empty string if no content is found.
  */
 export function extractCodeFencedContent(response: string): string {
-   const codeBlocks = response.match(/```(?:code|plaintext|requirement|userstory)?\s*([\s\S]*?)```/g);
+   const codeBlocks = response.match(/```(?:code|plaintext|requirement|userstory|specification)?\s*([\s\S]*?)```/g);
    if (!codeBlocks) {
        return '';
    }
 
    return codeBlocks
        .map(block => {
-           const content = block.match(/```(?:code|plaintext|requirement|userstory)?\s*([\s\S]*?)```/);
+           const content = block.match(/```(?:code|plaintext|requirement|userstory|specification)?\s*([\s\S]*?)```/);
            return content ? content[1].trim() : '';
        })
        .filter(content => content.length > 0)
@@ -82,21 +82,21 @@ export async function improveSpecificationWithPrompt(
 /**
  * Evaluates a requirement against provided guidelines.
  * 
- * @param requirement - The requirement to be evaluated.
+ * @param specification - The requirement to be evaluated.
  * @param wordCount - The word count to use to generate comments on the requirement.
  * @param promptId - The ID of the prompt to use for evaluation.
  * @param guidelines - The guidelines to evaluate the requirement against.
  * @returns A promise resolving to the evaluated requirement.
  */
 export async function improveSpecification(
-   requirement: string, 
+   specification: string, 
    wordCount: number, 
    promptId: string,
    guidelines: string
 ): Promise<ISpecificationEvaluation> {
 
-   if (!requirement || requirement.trim().length === 0) {
-      throw new InvalidParameterError('InvalidParameter: Requirement cannot be empty');
+   if (!specification || specification.trim().length === 0) {
+      throw new InvalidParameterError('InvalidParameter: Specification cannot be empty');
    }
    if (!wordCount || wordCount <= 0) {
       throw new InvalidParameterError('InvalidParameter: Word count must be greater than 0');
@@ -110,7 +110,7 @@ export async function improveSpecification(
 
    let evaluation = await improveSpecificationWithPrompt(promptId, {
       guidelines: guidelines,
-      requirement: requirement,
+      specification: specification,
       wordCount: wordCount.toString()
    })
 
@@ -124,9 +124,9 @@ export async function improveSpecification(
  * @param requirement - The requirement to be evaluated.
  * @returns A promise resolving to the evaluated requirement.
  */
-export async function improveRequirementSplit(specification: string): Promise<ISpecificationEvaluation> {
+export async function improveRequirementSplit(requirement: string): Promise<ISpecificationEvaluation> {
    let evaluation = await improveSpecificationWithPrompt(requirementsSplitterPromptId, {
-      requirement: specification
+      requirement: requirement
    });
 
    return evaluation;
@@ -145,12 +145,12 @@ function countWords(str: string): number {
 export async function evaluateRequirement(request: ISpecificationEvaluationRequest): Promise<ISpecificationEvaluation> {
 
    // The input is usually present in the output twice. We bracket this with min and max absolute incremental words. 
-   let wordCount: number = Math.min(Math.max(request.specification.length * 5, 
-      request.specification.length * 2 + MIN_WORD_COUNT), 
-      request.specification.length * 2 + MAX_WORD_COUNT);
+   let wordCount: number = Math.min(Math.max(countWords(request.specification) * 5, 
+      countWords(request.specification) * 2 + MIN_WORD_COUNT), 
+      countWords(request.specification) * 2 + MAX_WORD_COUNT);
 
    const improvedSpecification = await improveSpecification(request.specification, wordCount, 
-                                                        requirementsGuidelineCheckerPromptId, requirementGuidelines);
+                                                            requirementsGuidelineCheckerPromptId, requirementGuidelines);
 
    let splitSpecification = await improveRequirementSplit(improvedSpecification.proposedNewSpecification);
 
@@ -169,12 +169,12 @@ export async function evaluateRequirement(request: ISpecificationEvaluationReque
 export async function evaluateUserStory(request: ISpecificationEvaluationRequest): Promise<ISpecificationEvaluation> {
 
    // The input is usually present in the output twice. We bracket this with min and max absolute incremental words. 
-   let wordCount: number = Math.min(Math.max(request.specification.length * 5, 
-      request.specification.length * 2 + MIN_WORD_COUNT), 
-      request.specification.length * 2 + MAX_WORD_COUNT);
+   let wordCount: number = Math.min(Math.max(countWords(request.specification) * 5, 
+      countWords(request.specification) * 2 + MIN_WORD_COUNT), 
+      countWords(request.specification) * 2 + MAX_WORD_COUNT);
 
    const improvedSpecification = await improveSpecification(request.specification, wordCount, 
-                                                        userStoryGuidelineCheckerPromptId, userStoryGuidelines);
+                                                            userStoryGuidelineCheckerPromptId, userStoryGuidelines);
 
    return {
       evaluation: improvedSpecification.evaluation,

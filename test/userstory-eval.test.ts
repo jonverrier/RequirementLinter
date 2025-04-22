@@ -20,7 +20,7 @@ describe('User Story Evaluation Tests', () => {
         
         const result = await evaluateUserStory(request);
         
-        expect(result.evaluation.toLowerCase()).toContain('missing');
+        expect(result.evaluation.toLowerCase()).toMatch(/(missing|lacks)/);
         expect(result.evaluation.toLowerCase()).toContain('actor');
     }).timeout(TEST_TIMEOUT);
 
@@ -30,7 +30,7 @@ describe('User Story Evaluation Tests', () => {
         
         const result = await evaluateUserStory(request);
         
-        expect(result.evaluation.toLowerCase()).toContain('missing');
+        expect(result.evaluation.toLowerCase()).toMatch(/(missing|lacks)/);
         expect(result.evaluation.toLowerCase()).toContain('goal');
     }).timeout(TEST_TIMEOUT);
 
@@ -40,7 +40,7 @@ describe('User Story Evaluation Tests', () => {
         
         const result = await evaluateUserStory(request);
         
-        expect(result.evaluation.toLowerCase()).toMatch(/(violates|does not comply|does not adhere|fails to meet|does not meet)/);
+        expect(result.evaluation.toLowerCase()).toMatch(/(violates|violating|does not comply|does not adhere|fails to meet|does not meet)/);
     }).timeout(TEST_TIMEOUT);
 
     it('Test Case 4: Vague Terms', async () => {

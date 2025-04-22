@@ -14,7 +14,7 @@ describe('evaluateRequirement Integration Tests', () => {
     // Increase timeout for API calls
     const TEST_TIMEOUT = 30000; // 30 seconds as we have a large prompt with all the requirements
 
-    it('should improve and split a simple requirement', async () => {
+    it('should handlea simple requirement', async () => {
         // Arrange
         const inputRequirement = 'The system must handle user authentication';
 
