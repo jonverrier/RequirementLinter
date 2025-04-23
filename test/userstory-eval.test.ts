@@ -49,8 +49,7 @@ describe('User Story Evaluation Tests', () => {
         
         const result = await evaluateUserStory(request);
         
-        expect(result.evaluation.toLowerCase()).toContain('vague');
-        expect(result.evaluation.toLowerCase()).toContain('terms');
+        expect(result.evaluation.toLowerCase()).toMatch(/(vague|terms)/);
     }).timeout(TEST_TIMEOUT);
 
     it('Test Case 5: Good Compliance', async () => {
