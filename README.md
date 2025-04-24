@@ -124,12 +124,12 @@ The functional tests are in [userstory-eval.test.ts](test/userstory-eval.test.ts
 
 To install:
 
-Clone the companion [PromptRespository repo](https://github.com/jonverrier/PromptRespository). 
+Clone the companion [PromptRespository repo](https://github.com/jonverrier/PromptRepository). 
 
 ```plaintext
 npm i
 
-Ensure you have set your OpenAI API key as an environment variable: OPENAI_API_KEY, and that the PromptRespository package points to your local version.
+Ensure you have set your OpenAI API key as an environment variable: OPENAI_API_KEY, and that the PromptRepository package points to your local version.
 
 npm run build
 ```
