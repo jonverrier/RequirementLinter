@@ -124,7 +124,7 @@ The functional tests are in [userstory-eval.test.ts](test/userstory-eval.test.ts
 
 To install:
 
-Clone the companion [PromptRespository repo](https://github.com/jonverrier/PromptRepository). 
+Clone the companion [PromptRepository repo](https://github.com/jonverrier/PromptRepository). 
 
 ```plaintext
 npm i
