@@ -4,6 +4,26 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
+// ===Start StrongAI Generated Comment (20260314)===
+// This module contains integration tests for quickCheckLooksLikeRequirement, which classifies whether a text looks like a formal requirement. It exercises real LLM-backed behavior with controlled timeouts and also uses stubbing to make results deterministic for edge cases.
+// 
+// The suite verifies multiple scenarios:
+// - Clear requirement statements are classified as specifications.
+// - Obvious non-requirements are rejected.
+// - Ambiguous or adversarial input is evaluated differently depending on the beFriendly flag: true favors a “maybe/specification” outcome, false favors rejection.
+// 
+// There are no exports from this test module. The primary subject under test is quickCheckLooksLikeRequirement from ../src/QuickCheck, which accepts statement, beFriendly, and sessionId and returns an object with isSpecification.
+// 
+// Key imports:
+// - expect from expect for assertions.
+// - describe and it from mocha for test structure and per-test timeouts.
+// - EModel, EModelProvider, and ChatDriverFactory from prompt-repository to construct a chat driver consistent with production usage.
+// - sinon to stub ChatDriver.getModelResponse, simulating model outputs while preventing prompt injection hacks from influencing the test environment.
+// 
+// A consistent session id and a 30-second timeout are used for each test.
+// ===End StrongAI Generated Comment===
+
+
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 import { quickCheckLooksLikeRequirement } from '../src/QuickCheck';

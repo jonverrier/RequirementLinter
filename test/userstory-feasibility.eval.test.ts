@@ -4,6 +4,15 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
+// ===Start StrongAI Generated Comment (20260314)===
+// This module defines integration tests for a user story feasibility evaluator. It verifies that a prompt-driven model returns a normalized yes or no for given statements. There are no exports; everything runs as a Mocha test suite.
+// 
+// The key function is evaluateUserStory. It loads a prompt by ID from an in-memory prompt repository, expands the user prompt with the provided story, and sends it to a chat model. It uses ChatDriverFactory to create a client targeting EModel.kMini from EModelProvider.kOpenAI. It requests a response at EVerbosity.kMedium. The raw response is then normalized by extractResponse, which trims, lowercases, and removes punctuation to ensure clean yes/no output.
+// 
+// The test suite uses Mocha’s describe and it to define three cases with a 30s timeout. Two inputs are valid user stories that should yield yes, and one is a non-story that should yield no. It relies on expect for assertions. It imports PromptInMemoryRepository, typing interfaces (IPromptRepository, IPrompt), and prompt data from Prompts.json along with userStoryFeasibilityCheckerPromptId.
+// ===End StrongAI Generated Comment===
+
+
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 import { PromptInMemoryRepository, IPromptRepository, IPrompt, EModel, EModelProvider, EVerbosity, ChatDriverFactory } from "prompt-repository";

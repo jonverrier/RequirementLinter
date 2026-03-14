@@ -1,5 +1,16 @@
 // Copyright (c) 2025 Jon Verrier
 
+// ===Start StrongAI Generated Comment (20260314)===
+// This module defines a Mocha test suite that verifies automated improvements to natural-language requirements. It imports expect from the expect assertion library, describe and it from mocha to structure tests, and evaluateRequirement from ../src/Evaluate, which performs the actual requirement rewriting. The module does not export anything.
+// 
+// It declares sample requirement cases covering common quality issues: passive voice, missing definitions or references, spelling, missing units, combined requirements, ambiguous options, and non-measurable statements. Each case has an unacceptable string and one or more improved examples used only for context.
+// 
+// A helper, getRevisedRequirement, calls evaluateRequirement with a fixed SESSION_ID and returns the proposedNewSpecification. It sets but does not use a wordCount and suppresses optional logging via logAIResponseVsSuggested.
+// 
+// The test suite “Requirements Evaluation Tests” runs multiple async tests with a 30-second timeout. Each test feeds an unacceptable requirement to getRevisedRequirement, then asserts the AI-produced text matches targeted regex patterns. These patterns check for active-voice constructions, presence of definition references, corrected spelling, units, measurable criteria, or splitting into multiple requirements as appropriate.
+// ===End StrongAI Generated Comment===
+
+
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 

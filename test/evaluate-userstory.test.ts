@@ -4,6 +4,21 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
+// ===Start StrongAI Generated Comment (20260314)===
+// This module defines an integration test suite for the evaluateUserStory function. It verifies that the function can assess and improve user story text and return structured feedback. The suite uses a fixed session identifier to group calls and increases the per-test timeout to accommodate slower API-style processing.
+// 
+// There are tests for several scenarios:
+// - A simple, well-formed user story should yield a non-empty evaluation and a proposed improved specification.
+// - A complex story should produce multiple lines, indicating suggested splitting.
+// - Empty input must cause the function to reject with an error.
+// - A very short, informal story should be reformatted into a standard “As a … I want … so that …” shape.
+// - Stories containing special characters should be handled without failure.
+// - Stories with acceptance criteria should retain or enhance those criteria.
+// 
+// The module exports no symbols. It relies on Mocha’s describe and it for structuring asynchronous tests with timeouts, Expect for assertions, and the evaluateUserStory function imported from ../src/Evaluate as the unit under test.
+// ===End StrongAI Generated Comment===
+
+
 import { describe, it } from 'mocha';
 import { expect } from 'expect';
 import { evaluateUserStory } from '../src/Evaluate';

@@ -4,6 +4,25 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
+// ===Start StrongAI Generated Comment (20260314)===
+// This module is a test suite for extractCodeFencedContent. It verifies that the function correctly extracts and normalizes text from Markdown-style code fences. The tests focus on behavior across common and edge cases to prevent regressions.
+// 
+// There are no exports from this module. It defines a Mocha describe block with several it cases. Each case exercises a specific scenario and asserts the output.
+// 
+// The tested function, extractCodeFencedContent, is imported from ../src/Evaluate. The suite checks that it:
+// - Extracts content from a single fenced block.
+// - Combines content from multiple fenced blocks, inserting a blank line between blocks.
+// - Ignores optional language specifiers following the opening fence (for example, code, plaintext, requirement, userstory).
+// - Handles empty code blocks by returning an empty string.
+// - Returns an empty string when the input has no fenced blocks.
+// 
+// Key dependencies are:
+// - describe and it from mocha to define and organize tests.
+// - expect from expect to perform assertions.
+// These imports provide the test structure and verification mechanism around the target function.
+// ===End StrongAI Generated Comment===
+
+
 import { describe, it } from 'mocha';
 import { expect } from 'expect';
 import { extractCodeFencedContent } from '../src/Evaluate';

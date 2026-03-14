@@ -12,6 +12,25 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
+// ===Start StrongAI Generated Comment (20260314)===
+// This module evaluates and improves textual specifications (requirements and user stories) using AI prompts and guideline documents. It loads prompt templates and guideline markdown files, calls a chat model, and extracts improved, structured results.
+// 
+// Main exports:
+// - extractCodeFencedContent: Pulls and concatenates content from fenced code blocks in a model response.
+// - improveSpecificationWithPrompt: Expands a selected prompt with parameters, calls the chat model (large OpenAI model, medium verbosity), and returns the raw evaluation plus the improved specification extracted from code fences.
+// - improveSpecification: Validates inputs, injects guidelines, specification, and a target word count into a prompt, and delegates to improveSpecificationWithPrompt.
+// - improveRequirementSplit: Uses a splitter prompt to break a requirement into atomic statements.
+// - evaluateRequirement: Computes a bounded word count from input length, improves the requirement using requirement guidelines, then splits the result into atomic statements.
+// - evaluateUserStory: Similar to evaluateRequirement but uses user story guidelines and does not split.
+// 
+// Key imports:
+// - prompt-repository: ChatDriverFactory, PromptInMemoryRepository, model/provider enums, verbosity, IPrompt, InvalidParameterError.
+// - PromptIds constants for selecting prompts.
+// - fs and path for loading guideline files.
+// - API types for request and response shapes.
+// ===End StrongAI Generated Comment===
+
+
 import path from "path";
 import fs from "fs";
 
