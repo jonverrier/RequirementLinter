@@ -25,6 +25,13 @@ and then supplement these with a subset of the GtWR rules. User Stories are by d
 
 You can find an online version of the Requirement Linter [here](https://nice-wave-0746ea503.6.azurestaticapps.net/index).
 
+## Documentation
+
+Generated architecture docs (C4 context and component diagrams) in the source tree:
+
+- [Context diagram](src/README.StrongAI.Context.md) – how the linter interacts with users and external systems
+- [Component diagram](src/README.StrongAI.Component.md) – library structure and modules
+
 ## Features
 
 - Validates user stories or requirements against established guidelines

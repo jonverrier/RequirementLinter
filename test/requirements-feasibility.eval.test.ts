@@ -4,6 +4,17 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
+// ===Start StrongAI Generated Comment (20260314)===
+// This module defines integration tests for evaluating if a natural-language requirement is feasible, returning a normalized “yes” or “no”. It builds a prompt-driven chat request using an in-memory prompt repository and a chat driver, then asserts behavior across representative inputs.
+// 
+// Two local helpers drive the tests. extractResponse normalizes model output by trimming, lowering case, and removing punctuation to reduce noise. evaluateRequirementFeasibility loads the requirements feasibility checker prompt, expands it with the given statement, invokes a chat model, and returns the normalized answer.
+// 
+// The module does not export symbols. Its observable behavior is validated through three mocha test cases: a clear requirement yields “yes”, a similar requirement with different numeric values also yields “yes”, and a non-requirement sentence yields “no”. Each test uses a 30-second timeout.
+// 
+// Key dependencies include mocha (describe, it) and expect for assertions. From prompt-repository it relies on PromptInMemoryRepository, IPromptRepository, IPrompt, ChatDriverFactory, and enums EModel, EModelProvider, and EVerbosity to select the model and verbosity. It also uses Prompts.json and requirementsFeasibilityCheckerPromptId.
+// ===End StrongAI Generated Comment===
+
+
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 import { PromptInMemoryRepository, IPromptRepository, IPrompt, EModel, EModelProvider, EVerbosity, ChatDriverFactory } from "prompt-repository";

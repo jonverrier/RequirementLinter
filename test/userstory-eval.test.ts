@@ -1,3 +1,22 @@
+// ===Start StrongAI Generated Comment (20260314)===
+// This module defines a Mocha test suite that verifies automated evaluation of user stories. It exercises the evaluateUserStory function with several input variations to ensure the evaluator flags common issues and recognizes compliant stories.
+// 
+// There are no exports from this file. Its primary role is to run five tests:
+// - Missing Actor: expects the evaluation to indicate an absent actor.
+// - Missing Goal: expects the evaluation to indicate an absent goal.
+// - Non-INVEST Compliant: expects detection of INVEST violations.
+// - Vague Terms: expects identification of vague wording.
+// - Good Compliance: expects no violation language for a well-formed story with acceptance criteria and performance constraints.
+// 
+// Key imports:
+// - describe and it from mocha to define and run asynchronous tests with a 30-second timeout.
+// - expect from expect to assert on evaluation text using toMatch and toContain.
+// - evaluateUserStory from ../src/Evaluate, the async function under test returning an object with an evaluation string.
+// - ISpecificationEvaluationRequest from the API types to type the request shape.
+// 
+// A helper creates requests with a fixed session ID to simulate a stable evaluation context.
+// ===End StrongAI Generated Comment===
+
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 import { evaluateUserStory } from '../src/Evaluate';

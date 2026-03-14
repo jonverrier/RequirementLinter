@@ -4,6 +4,22 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
+// ===Start StrongAI Generated Comment (20260314)===
+// This module defines an integration test suite for quickCheckLooksLikeUserStory. Its purpose is to verify that the function correctly classifies input text as a user story or not, and that “friendly” mode changes the decision threshold. The suite exercises clear positives, clear negatives, and adversarial inputs.
+// 
+// There are no exports. The module runs via Mocha and asserts behavior with Expect.
+// 
+// Key imports:
+// - quickCheckLooksLikeUserStory from ../src/QuickCheck. This is the system under test. It accepts a statement, a beFriendly flag, and a sessionId, and returns an object with isSpecification.
+// - describe and it from mocha. They define test groups and cases and apply timeouts to cover network latency.
+// - expect from expect. It performs boolean assertions on isSpecification.
+// - ChatDriverFactory, EModel, and EModelProvider from prompt-repository. They provide access to the chat driver class used internally by the checker, enabling precise stubbing.
+// - sinon. It stubs ChatDriverClass.prototype.getModelResponse to control model replies, ensuring deterministic tests for adversarial prompts.
+// 
+// The tests validate positive stories, reject obvious non-stories, and confirm different outcomes when friendly mode is toggled.
+// ===End StrongAI Generated Comment===
+
+
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 import { quickCheckLooksLikeUserStory } from '../src/QuickCheck';

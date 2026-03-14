@@ -4,6 +4,15 @@
  */
 // Copyright (c) 2025 Jon Verrier
 
+// ===Start StrongAI Generated Comment (20260314)===
+// This module defines an integration test suite for the requirement-splitting logic. It verifies that the function under test produces an appropriate number of distinct requirement statements when given different types of input. The focus is on ensuring single, simple requirements are not split, while compound requirements are split into multiple clauses.
+// 
+// The suite does not export any symbols. Instead, it registers tests with the Mocha runner using describe and it. Each test is asynchronous and applies a per-test timeout to guard against long-running operations.
+// 
+// The core dependency is improveRequirementSplit imported from ../src/Evaluate. The tests call this function with a specification sentence and expect a structured response containing a proposedNewSpecification field. The content of this field is inspected by counting occurrences of the modal verbs “shall” or “must” via a case-insensitive regular expression. The expect library provides assertion utilities to compare the counted occurrences against expected values, checking both equality and greater-than scenarios. Collectively, these tests validate semantic splitting behavior across simple, equivalent-wording, and compound inputs.
+// ===End StrongAI Generated Comment===
+
+
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
 import { improveRequirementSplit } from '../src/Evaluate';
