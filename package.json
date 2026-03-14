@@ -11,7 +11,7 @@
    "license": "MIT",
    "scripts": {
       "build": "tsc -b && ncp ./src/RequirementsGuidelines.md dist/src/RequirementsGuidelines.md && ncp ./src/UserStoryGuidelines.md dist/src/UserStoryGuidelines.md",
-      "install": "npm install ../PromptRepository",
+      "setup": "npm install ../PromptRepository",
       "watch": "tsc -b -w",
       "clean": "rimraf dist",
       "prestart": "npm run clean && npm run build",
