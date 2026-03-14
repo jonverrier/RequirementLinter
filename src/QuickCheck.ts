@@ -7,7 +7,7 @@
 
 import { IQuickCheckRequest, IQuickCheckResponse } from "../export/RequirementsLinterApiTypes";
 
-import { ChatDriverFactory, EModel, EModelProvider, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "prompt-repository";
+import { ChatDriverFactory, EModel, EModelProvider, EVerbosity, IPrompt, PromptInMemoryRepository, InvalidParameterError } from "prompt-repository";
 import { requirementsFeasibilityCheckerPromptId, userStoryFeasibilityCheckerPromptId } from "./PromptIds";
 import prompts from "./Prompts.json";
 const typedPrompts = prompts as IPrompt[];
@@ -56,7 +56,7 @@ async function quickCheckLooksLikeRequirementWithPrompt (request: IQuickCheckReq
     });
 
     // Get the response from the AI
-    const response = await chatDriver.getModelResponse(prompt!.systemPrompt, userPrompt);
+    const response = await chatDriver.getModelResponse(prompt!.systemPrompt, userPrompt, EVerbosity.kMedium);
 
     // Trim, lower case and remove punctuation from the response
     const trimmed = response.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');

@@ -6,7 +6,7 @@
 
 import { expect } from 'expect';
 import { describe, it } from 'mocha';
-import { PromptInMemoryRepository, IPromptRepository, IPrompt, EModel, EModelProvider, ChatDriverFactory } from "prompt-repository";
+import { PromptInMemoryRepository, IPromptRepository, IPrompt, EModel, EModelProvider, EVerbosity, ChatDriverFactory } from "prompt-repository";
 import prompts from '../src/Prompts.json';
 import { userStoryFeasibilityCheckerPromptId } from '../src/PromptIds';
 
@@ -26,7 +26,7 @@ async function evaluateUserStory(promptRepo: IPromptRepository, story: string): 
     const chatDriverFactory = new ChatDriverFactory();
     const chatDriver = chatDriverFactory.create(EModel.kMini, EModelProvider.kOpenAI);    
 
-    const response = await chatDriver.getModelResponse(prompt!.systemPrompt, userPrompt);
+    const response = await chatDriver.getModelResponse(prompt!.systemPrompt, userPrompt, EVerbosity.kMedium);
     return extractResponse(response);
 }
 
