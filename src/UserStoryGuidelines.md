@@ -4,7 +4,7 @@ This document provides a set of guidelines for writing good user stories, source
 https://www.gov.uk/service-manual/agile-delivery/writing-user-stories 
 https://miro.com/agile/how-to-write-good-user-story/ 
 https://medium.com/theproductperson/writing-better-user-stories-through-active-acceptance-criteria-5615a54e2750
-https://www.incose.org/docs/default-source/working-groups/requirements-wg/gtwr/incose_rwg_gtwr_v4_040423_final_drafts.pdf?sfvrsn=5c877fc7_2
+https://www.incose.org/wp-content/uploads/legacy/working-groups/requirements-wg/guidetowritingrequirements/incose_rwg_gtwr_v4_summary_sheet.pdf
 
 R1 A User Story should always include the person using the service (the actor)
 R2 A User Story should always include what the user needs the service for (the narrative)

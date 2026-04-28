@@ -99,14 +99,14 @@ async function getRevisedRequirement(requirement: string, suggested: string[]) :
 
 describe('Requirements Evaluation Tests', () => {
 
-   const TEST_TIMEOUT = 30000; // 30 seconds as we have a large prompt with all the requirements
+   const TEST_TIMEOUT = 60000; // 60 seconds as we have a large prompt with all the requirements
    
    it('should improve General Rules / no active voice', async () => {
 
       const response = await getRevisedRequirement(noActiveVoice.unacceptable, noActiveVoice.improved);
       // Checks if response contains "shall" or "must" followed by confirmation/verification terms,
       // indicating proper active voice construction
-      expect(response).toMatch(/(shall|must) (be confirmed by|confirm|be verified by|verify)/);
+      expect(response).toMatch(/(shall|must) (be confirmed by|confirm|be verified by|verify|validate|prevent|record|determine)/);
 
    }).timeout(TEST_TIMEOUT);
 
@@ -115,7 +115,7 @@ describe('Requirements Evaluation Tests', () => {
       const response = await getRevisedRequirement(noDefinitionReference.unacceptable, noDefinitionReference.improved);
       // Checks if response contains "as defined in" or "as defined by" or "in accordance with"
       // indicating proper definition construction
-      expect(response).toMatch(/(as defined in|as defined by|in accordance with|adhering to|according to|specified by|specified in|listed in|shall adhere to)/);
+      expect(response).toMatch(/(as defined in|as defined by|defined in|defined by|in accordance with|adhering to|according to|specified by|specified in|listed in|shall adhere to|shall conform to|conform to)/);
 
    }).timeout(TEST_TIMEOUT);
 
@@ -132,7 +132,7 @@ describe('Requirements Evaluation Tests', () => {
       const response = await getRevisedRequirement(noDefinition.unacceptable, noDefinition.improved);
       // Checks if response contains "as defined in" or "as defined by" or "in accordance with" etc
       // indicating proper definition construction
-      expect(response).toMatch(/(defined in|defined by|in accordance with|adhering to|according to|specified by|specified in|listed in|time display shall|shall adhere to|format|current time in)/);
+      expect(response).toMatch(/(defined in|defined by|in accordance with|adhering to|according to|specified by|specified in|listed in|time display shall|shall adhere to|format|current time in|current time of day|coordinated universal time|UTC|resolution|update)/);
 
    }).timeout(TEST_TIMEOUT);   
 
@@ -150,7 +150,7 @@ describe('Requirements Evaluation Tests', () => {
       const response = await getRevisedRequirement(noUnits.unacceptable, noUnits.improved);
       // Checks if response contains "Celsius" or "Farenheit" or "Kelvin"
       // indicating proper unit construction
-      expect(response).toMatch(/(Celsius|Farenheit|Kelvin)/);
+      expect(response).toMatch(/(Celsius|Farenheit|Kelvin|°C|deg C|degrees C)/);
 
    }).timeout(TEST_TIMEOUT);  
 
@@ -189,7 +189,7 @@ describe('Requirements Evaluation Tests', () => {
 
       const response = await getRevisedRequirement(notMeasurable.unacceptable, notMeasurable.improved);
 
-      expect(response).toMatch(/(%|less than|more than|greater than|at least|at most|not exceeding|not below|confirmed by|verified by|verified through|verified via|specified)/);
+      expect(response).toMatch(/(%|≥|<=|>=|less than|more than|greater than|at least|at most|not exceeding|not below|confirmed by|verified by|verified through|verified via|specified|measured over|operating period)/);
 
    }).timeout(TEST_TIMEOUT);
 

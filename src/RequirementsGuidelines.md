@@ -1,6 +1,7 @@
 # Writing Good Requirements
 
-This document provides a set of guidelines for writing good requirements, sourced from the INCOSE Guide for Writing Good Requirements (GfWR).
+This document provides a set of guidelines for writing good requirements, sourced from the INCOSE Guide to Writing Requirements summary sheet:
+https://www.incose.org/wp-content/uploads/legacy/working-groups/requirements-wg/guidetowritingrequirements/incose_rwg_gtwr_v4_summary_sheet.pdf
 
 # General Rules for Requirement Statements
 | Rule | Title                     | Description |

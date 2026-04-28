@@ -10,7 +10,7 @@ AI isn't just accelerating development, it is changing the way we build software
 How it works:
 We prompt an LLM (currently OpenAI GPT5) to review your user story or formal requirement against a set of guidelines. 
 
-For a formal requirement, we use the guidelines from the International Council of Systems Engineering '[Guide to Writing Requirements](https://www.incose.org/docs/default-source/working-groups/requirements-wg/gtwr/incose_rwg_gtwr_v4_040423_final_drafts.pdf)' (GtWR). The GtWR is a mature product that is widely used in the industry.  
+For a formal requirement, we use the guidelines from the International Council of Systems Engineering '[Guide to Writing Requirements](https://www.incose.org/wp-content/uploads/legacy/working-groups/requirements-wg/guidetowritingrequirements/incose_rwg_gtwr_v4_summary_sheet.pdf)' (GtWR). The GtWR is a mature product that is widely used in the industry.  
 
 For a user story, we use a set of common industry guidelines:
 - [UK Government - Writing User Stories](https://www.gov.uk/service-manual/agile-delivery/writing-user-stories)
@@ -122,7 +122,7 @@ Here is a requirement:
 If the requirement should be split into multiple distinct requirements for clarity, testability, or traceability, please rewrite them as separate requirements. Use code fences to demarcate the set of new requirements. Do not split if the requirement can reasonably be written as a single requirement. If the requirement does not need to be split, return it unchanged within code fences.
 ```` 
 
-The functional tests are in [userstory-eval.test.ts](test/userstory-eval.test.ts) and [test/requirements.eval.test.ts](test/requirements.eval.test.ts). The test cases are taken from [here](https://www.incose.org/docs/default-source/working-groups/requirements-wg/shared_gtwr/gtwr_characteristics_section_4_050423.pdf?sfvrsn=9a7548c7_2). Not all of the tests are included - this is because:
+The functional tests are in [userstory-eval.test.ts](test/userstory-eval.test.ts) and [test/requirements.eval.test.ts](test/requirements.eval.test.ts). The test cases are taken from the [INCOSE Guide to Writing Requirements summary sheet](https://www.incose.org/wp-content/uploads/legacy/working-groups/requirements-wg/guidetowritingrequirements/incose_rwg_gtwr_v4_summary_sheet.pdf). Not all of the tests are included - this is because:
 - it turned into an exercise of writing regular expressions to catch increasigly compex conditions, and the value of the tests seemed to be dropping off vs just publishing the tool in a reasonable first draft state. 
 - as noted under installation, not all of the current tests always pass. The next focus area is getting the base set of evaluations to pass 100% of the time, which is a prompt engineering journey, and seems more valuable than coding dozens more regular expressions. 
 

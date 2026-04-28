@@ -31,7 +31,7 @@ const SESSION_ID = '1234567890';
 
 describe('evaluateRequirement Integration Tests', () => {
     // Increase timeout for API calls
-    const TEST_TIMEOUT = 30000; // 30 seconds as we have a large prompt with all the requirements
+    const TEST_TIMEOUT = 60000; // 60 seconds as we have a large prompt with all the requirements
 
     it('should handlea simple requirement', async () => {
         // Arrange
