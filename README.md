@@ -14,7 +14,7 @@ AI isn't just accelerating development, it is changing the way we build software
 
 We prompt an LLM (currently OpenAI GPT-4) to review your user story or formal requirement against a set of guidelines.
 
-For a **formal requirement**, we use the guidelines from the International Council of Systems Engineering '[Guide to Writing Requirements](https://www.incose.org/docs/default-source/working-groups/requirements-wg/gtwr/incose_rwg_gtwr_v4_040423_final_drafts.pdf)' (GtWR). The GtWR is a mature product that is widely used in the industry.
+For a **formal requirement**, we use the guidelines from the International Council of Systems Engineering '[Guide to Writing Requirements](https://www.incose.org/wp-content/uploads/legacy/working-groups/requirements-wg/guidetowritingrequirements/incose_rwg_gtwr_v4_summary_sheet.pdf)' (GtWR). The GtWR is a mature product that is widely used in the industry.
 
 For a **user story**, we use a set of common industry guidelines:
 - [UK Government - Writing User Stories](https://www.gov.uk/service-manual/agile-delivery/writing-user-stories)
@@ -148,7 +148,7 @@ This revision addresses the issues by providing a specific response time, using 
 
 ## Tests
 
-The functional tests are in [test/userstory-eval.test.ts](test/userstory-eval.test.ts) and [test/requirements.eval.test.ts](test/requirements.eval.test.ts). The test cases are taken from [here](https://www.incose.org/docs/default-source/working-groups/requirements-wg/shared_gtwr/gtwr_characteristics_section_4_050423.pdf?sfvrsn=9a7548c7_2).
+The functional tests are in [test/userstory-eval.test.ts](test/userstory-eval.test.ts) and [test/requirements.eval.test.ts](test/requirements.eval.test.ts). The test cases are taken from the [INCOSE Guide to Writing Requirements summary sheet](https://www.incose.org/wp-content/uploads/legacy/working-groups/requirements-wg/guidetowritingrequirements/incose_rwg_gtwr_v4_summary_sheet.pdf).
 
 Not all tests are included — this is because the remaining cases turned into an exercise in writing increasingly complex regular expressions, and the value of those tests seemed to drop off versus getting the existing set passing reliably. As noted below, not all of the current tests always pass. The next focus area is getting the base set of evaluations to pass 100% of the time through prompt engineering, which seems more valuable than adding more regex-heavy test cases.
 

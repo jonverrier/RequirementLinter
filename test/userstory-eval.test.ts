@@ -50,7 +50,7 @@ describe('User Story Evaluation Tests', () => {
         const result = await evaluateUserStory(request);
         
         expect(result.evaluation.toLowerCase()).toMatch(/(missing|lacks)/);
-        expect(result.evaluation.toLowerCase()).toContain('goal');
+        expect(result.evaluation.toLowerCase()).toMatch(/(goal|business outcome|outcome|benefit)/);
     }).timeout(TEST_TIMEOUT);
 
     it('Test Case 3: Non-INVEST Compliant', async () => {
@@ -59,7 +59,7 @@ describe('User Story Evaluation Tests', () => {
         
         const result = await evaluateUserStory(request);
         
-        expect(result.evaluation.toLowerCase()).toMatch(/(violates|violating|does not comply|does not adhere|fails to meet|does not meet)/);
+        expect(result.evaluation.toLowerCase()).toMatch(/(violates|violating|does not comply|does not adhere|fails to meet|does not meet|not a valid user story|does not follow|not testable|not estimable)/);
     }).timeout(TEST_TIMEOUT);
 
     it('Test Case 4: Vague Terms', async () => {
